@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>Pudhukulam.kml</name>
+	<Style id="PolyStyle00">
+		<LabelStyle>
+			<color>00000000</color>
+			<scale>0</scale>
+		</LabelStyle>
+		<LineStyle>
+			<color>ffeb6540</color>
+			<width>0.4</width>
+		</LineStyle>
+		<PolyStyle>
+			<color>fff2db97</color>
+		</PolyStyle>
+	</Style>
+	<Placemark id="ID_01339">
+		<name>Pudhukulam</name>
+		<Snippet maxLines="0"></Snippet>
+		<description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+
+<td>Pudhukulam</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+
+<tr>
+
+<td>FID</td>
+
+<td>1339</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>CLUSTER</td>
+
+<td></td>
+
+</tr>
+
+<tr>
+
+<td>TANK_NUM</td>
+
+<td>185</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Unique_id</td>
+
+<td>TNGU-01-T0318</td>
+
+</tr>
+
+<tr>
+
+<td>Tank_Name</td>
+
+<td>Pudhukulam</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Latitude</td>
+
+<td>9.921046</td>
+
+</tr>
+
+<tr>
+
+<td>Longitude</td>
+
+<td>78.02775</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Village</td>
+
+<td>Pudhukulam</td>
+
+</tr>
+
+<tr>
+
+<td>Block</td>
+
+<td>Thiruparamkundram</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Taluk</td>
+
+<td>Madurai South</td>
+
+</tr>
+
+<tr>
+
+<td>District</td>
+
+<td>Madurai</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Subbasin</td>
+
+<td>Gridhamaal Nadhi</td>
+
+</tr>
+
+<tr>
+
+<td>Basin</td>
+
+<td>Gundar</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Section</td>
+
+<td>Nilaiyur Section.</td>
+
+</tr>
+
+<tr>
+
+<td>Sub_Dn</td>
+
+<td>Periyar Vaigai Basin Sub Dn-II, Madurai</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Division</td>
+
+<td>Periyar Vaigai Basin Division, Madurai</td>
+
+</tr>
+
+<tr>
+
+<td>Circle</td>
+
+<td>Non system</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Region</td>
+
+<td>Madurai</td>
+
+</tr>
+
+<tr>
+
+<td>Tank_Type</td>
+
+<td>142.34</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Cap_MCM</td>
+
+<td>142.645</td>
+
+</tr>
+
+<tr>
+
+<td>FTL_m</td>
+
+<td>143.405</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>MWL_m</td>
+
+<td>2.47</td>
+
+</tr>
+
+<tr>
+
+<td>TBL_m</td>
+
+<td>29.72</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Sto_Dep_m</td>
+
+<td>0.78</td>
+
+</tr>
+
+<tr>
+
+<td>Ayacut_ha</td>
+
+<td>4.64</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Catch_sqkm</td>
+
+<td>1</td>
+
+</tr>
+
+<tr>
+
+<td>Wat_Spr_ha</td>
+
+<td>120</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>No_of_Weir</td>
+
+<td>3</td>
+
+</tr>
+
+<tr>
+
+<td>Weir_Len_m</td>
+
+<td>139.6</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>No_Sluice</td>
+
+<td>960</td>
+
+</tr>
+
+<tr>
+
+<td>Low_Sil_m</td>
+
+<td>280</td>
+
+</tr>
+
+<tr bgcolor="#D4E4F3">
+
+<td>Bund_Len_m</td>
+
+<td>0</td>
+
+</tr>
+
+<tr>
+
+<td>Dis_cusec</td>
+
+<td>0</td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>]]></description>
+		<styleUrl>#PolyStyle00</styleUrl>
+		<MultiGeometry>
+			<Polygon>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							78.02814090278744,9.923916694608955,0 78.02704635011318,9.922584196908089,0 78.02628492341806,9.921346876142332,0 78.02571385281831,9.920347503194217,0 78.02609456675273,9.919300540694927,0 78.02709393995907,9.918443934440404,0 78.02761742118057,9.918158399678878,0 78.02814090264621,9.918919827125258,0 78.02890233013036,9.920014379348142,0 78.02928304393623,9.92158482233542,0 78.02985411508075,9.922774553619284,0 78.02814090278744,9.923916694608955,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</MultiGeometry>
+	</Placemark>
+</Document>
+</kml>
