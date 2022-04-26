@@ -98,3 +98,10 @@ class TankSurveyQuestionResponse(models.Model):
     createdDate = models.DateTimeField(auto_now_add=True)
     lastModifiedBy = models.CharField(max_length=255,blank=True)
     lastModifiedDate = models.DateTimeField(auto_now=True)
+
+class DummyEntity(models.model):
+    name = models.CharField(max_length=255)
+    createdBy = models.CharField(max_length=255)
+    createdDate = models.DateTimeField(auto_now_add=True)
+    lastModifiedBy = models.CharField(max_length=255,blank=True)
+    lastModifiedDate = models.DateTimeField(auto_now=True)
