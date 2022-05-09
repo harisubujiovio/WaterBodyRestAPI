@@ -18,8 +18,10 @@ from rest_framework.pagination import LimitOffsetPagination
 
 
 from waterbody.settings import BASE_DIR
-from .models import Role, SurveyQuestionMetaData, TankImage, TankMetaData, UserProfile
-from .serializers import RoleSerializer, RoleUpdateSerializer, SurveyQuestionDataSerializer, TankImageSerializer, TankMetaDataSerializer, UserProfileAddSerializer, UserProfileSerializer, UserProfileUpdateSerializer
+from .models import Block, Month, Panchayat, Role, SurveyQuestionMetaData, Taluk, TankImage, TankMetaData, UserProfile, WaterBodyAyacutNonCultivation, WaterBodyBoundaryDropPoint, WaterBodyBund, WaterBodyCropping, WaterBodyCrossSection, WaterBodyDepthSillLevel, WaterBodyExoticSpecies, WaterBodyFamilyDistributionLand, WaterBodyFamilyNature, WaterBodyInvestmentNature, WaterBodyIrrigationTankFunction, WaterBodyMWLStone, WaterBodyOwnerShip, WaterBodyShutter, WaterBodyShutterCondition, WaterBodySluice, WaterBodySluiceCondition, WaterBodySource, WaterBodyStonePitching, WaterBodyStonePitchingCondition, WaterBodyStreamIssues, WaterBodySurplusWeir, WaterBodyTankIssues, WaterBodyTankUniqueness, WaterBodyType
+from .serializers import BlockSerializer, MonthSerializer, PanchayatSerializer, RoleSerializer, RoleUpdateSerializer, SurveyQuestionDataSerializer, \
+     TalukSerializer, TankImageSerializer, TankMetaDataSerializer, UserProfileAddSerializer, UserProfileSerializer, \
+     UserProfileUpdateSerializer, WaterBodyAyacutNonCultivationSerializer, WaterBodyBoundaryDropPointSerializer, WaterBodyBundSerializer, WaterBodyCroppingSerializer, WaterBodyCrossSectionSerializer, WaterBodyDepthSillLevelSerializer, WaterBodyExoticSpeciesSerializer, WaterBodyFamilyDistributionLandSerializer, WaterBodyFamilyNatureSerializer, WaterBodyInvestmentNatureSerializer, WaterBodyIrrigationTankFunctionSerializer, WaterBodyMWLStoneSerializer, WaterBodyOwnerShipSerializer, WaterBodyShutterConditionSerializer, WaterBodyShutterSerializer, WaterBodySluiceConditionSerializer, WaterBodySluiceSerializer, WaterBodySourceSerializer, WaterBodyStonePitchingConditionSerializer, WaterBodyStonePitchingSerializer, WaterBodyStreamIssuesSerializer, WaterBodySurplusWeirSerializer, WaterBodyTankIssuesSerializer, WaterBodyTankUniquenessSerializer, WaterBodyTypeSerializer
 # Create your views here.
 
 
@@ -43,6 +45,443 @@ class RoleViewSet(ModelViewSet):
             return Response( { 'error': 'Role cannot be deleted because it is associated with users'},status=status.HTTP_405_METHOD_NOT_ALLOWED)
         role.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class TalukViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = Taluk.objects.all()
+    serializer_class = TalukSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = Taluk.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class BlockViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = Block.objects.all()
+    serializer_class = BlockSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = Block.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class PanchayatViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = Panchayat.objects.all()
+    serializer_class = PanchayatSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def AllPanchayatsByBlockId(self,request):
+        # get query params from get request
+        id = request.query_params["blockId"]
+        queryset = Panchayat.objects.filter(blockId_id=id).values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyTypeViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyType.objects.all()
+    serializer_class = WaterBodyTypeSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyType.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyOwnerShipViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyOwnerShip.objects.all()
+    serializer_class = WaterBodyOwnerShipSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyOwnerShip.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class MonthViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = Month.objects.all()
+    serializer_class = MonthSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = Month.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodySourceViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodySource.objects.all()
+    serializer_class = WaterBodySourceSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodySource.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyCrossSectionViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyCrossSection.objects.all()
+    serializer_class = WaterBodyCrossSectionSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyCrossSection.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyStreamIssuesViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyStreamIssues.objects.all()
+    serializer_class = WaterBodyStreamIssuesSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyStreamIssues.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyExoticSpeciesViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyExoticSpecies.objects.all()
+    serializer_class = WaterBodyExoticSpeciesSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyExoticSpecies.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyBundViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyBund.objects.all()
+    serializer_class = WaterBodyBundSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyBund.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyTankIssuesViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyTankIssues.objects.all()
+    serializer_class = WaterBodyTankIssuesSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyTankIssues.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyStonePitchingViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyStonePitching.objects.all()
+    serializer_class = WaterBodyStonePitchingSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyStonePitching.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyStonePitchingConditionViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyStonePitchingCondition.objects.all()
+    serializer_class = WaterBodyStonePitchingConditionSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyStonePitchingCondition.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodySluiceViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodySluice.objects.all()
+    serializer_class = WaterBodySluiceSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodySluice.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyDepthSillLevelViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyDepthSillLevel.objects.all()
+    serializer_class = WaterBodyDepthSillLevelSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyDepthSillLevel.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyShutterViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyShutter.objects.all()
+    serializer_class = WaterBodyShutterSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyShutter.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodySluiceConditionViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodySluiceCondition.objects.all()
+    serializer_class = WaterBodySluiceConditionSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodySluiceCondition.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyShutterConditionViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyShutterCondition.objects.all()
+    serializer_class = WaterBodyShutterConditionSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyShutterCondition.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodySurplusWeirViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodySurplusWeir.objects.all()
+    serializer_class = WaterBodySurplusWeirSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodySurplusWeir.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyMWLStoneViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyMWLStone.objects.all()
+    serializer_class = WaterBodyMWLStoneSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyMWLStone.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyIrrigationTankFunctionViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyIrrigationTankFunction.objects.all()
+    serializer_class = WaterBodyIrrigationTankFunctionSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyIrrigationTankFunction.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyAyacutNonCultivationViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyAyacutNonCultivation.objects.all()
+    serializer_class = WaterBodyAyacutNonCultivationSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyAyacutNonCultivation.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyCroppingViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyCropping.objects.all()
+    serializer_class = WaterBodyCroppingSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyCropping.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyInvestmentNatureViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyInvestmentNature.objects.all()
+    serializer_class = WaterBodyInvestmentNatureSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyInvestmentNature.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyFamilyNatureViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyFamilyNature.objects.all()
+    serializer_class = WaterBodyFamilyNatureSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyFamilyNature.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyFamilyDistributionLandViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyFamilyDistributionLand.objects.all()
+    serializer_class = WaterBodyFamilyDistributionLandSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyFamilyDistributionLand.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyTankUniquenessViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyTankUniqueness.objects.all()
+    serializer_class = WaterBodyTankUniquenessSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyTankUniqueness.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyBoundaryDropPointViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyBoundaryDropPoint.objects.all()
+    serializer_class = WaterBodyBoundaryDropPointSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyBoundaryDropPoint.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
 
 
 class UserList(ListAPIView, GenericViewSet):
