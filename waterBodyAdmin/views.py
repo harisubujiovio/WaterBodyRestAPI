@@ -1,5 +1,6 @@
 from pickle import FALSE, TRUE
 import os
+import logging
 from pprint import pprint
 from sre_parse import FLAGS
 from django.db import connection
@@ -15,16 +16,20 @@ from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework.generics import ListAPIView
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.pagination import LimitOffsetPagination
-
+from django.views.generic import TemplateView
 
 from waterbody.settings import BASE_DIR
-from .models import Block, Month, Panchayat, Role, SurveyQuestionMetaData, Taluk, TankImage, TankMetaData, UserProfile, WaterBodyAyacutNonCultivation, WaterBodyBoundaryDropPoint, WaterBodyBund, WaterBodyCropping, WaterBodyCrossSection, WaterBodyDepthSillLevel, WaterBodyExoticSpecies, WaterBodyFamilyDistributionLand, WaterBodyFamilyNature, WaterBodyInvestmentNature, WaterBodyIrrigationTankFunction, WaterBodyMWLStone, WaterBodyOwnerShip, WaterBodyShutter, WaterBodyShutterCondition, WaterBodySluice, WaterBodySluiceCondition, WaterBodySource, WaterBodyStonePitching, WaterBodyStonePitchingCondition, WaterBodyStreamIssues, WaterBodySurplusWeir, WaterBodyTankIssues, WaterBodyTankUniqueness, WaterBodyType
+from .models import Block, Month, Panchayat, Role, SurveyQuestionMetaData, Taluk, TankImage, TankMetaData, UserProfile, WaterBodyAyacutNonCultivation, WaterBodyBoundaryDropPoint, WaterBodyBund, WaterBodyCropping, WaterBodyCrossSection, WaterBodyDepthSillLevel, WaterBodyExoticSpecies, WaterBodyFamilyDistributionLand, WaterBodyFamilyNature, WaterBodyFenceCondition, WaterBodyFenceType, WaterBodyGhatCondition, WaterBodyInletType, WaterBodyInvestmentNature, WaterBodyIrrigationTankFunction, WaterBodyMWLStone, WaterBodyOoraniFunction, WaterBodyOutletType, WaterBodyOwnerShip, WaterBodyShutter, WaterBodyShutterCondition, WaterBodySlitTrap, WaterBodySluice, WaterBodySluiceCondition, WaterBodySource, WaterBodyStonePitching, WaterBodyStonePitchingCondition, WaterBodyStreamIssues, WaterBodySurplusWeir, WaterBodyTankIssues, WaterBodyTankUniqueness, WaterBodyTempleTankType, WaterBodyType
 from .serializers import BlockSerializer, MonthSerializer, PanchayatSerializer, RoleSerializer, RoleUpdateSerializer, SurveyQuestionDataSerializer, \
      TalukSerializer, TankImageSerializer, TankMetaDataSerializer, UserProfileAddSerializer, UserProfileSerializer, \
-     UserProfileUpdateSerializer, WaterBodyAyacutNonCultivationSerializer, WaterBodyBoundaryDropPointSerializer, WaterBodyBundSerializer, WaterBodyCroppingSerializer, WaterBodyCrossSectionSerializer, WaterBodyDepthSillLevelSerializer, WaterBodyExoticSpeciesSerializer, WaterBodyFamilyDistributionLandSerializer, WaterBodyFamilyNatureSerializer, WaterBodyInvestmentNatureSerializer, WaterBodyIrrigationTankFunctionSerializer, WaterBodyMWLStoneSerializer, WaterBodyOwnerShipSerializer, WaterBodyShutterConditionSerializer, WaterBodyShutterSerializer, WaterBodySluiceConditionSerializer, WaterBodySluiceSerializer, WaterBodySourceSerializer, WaterBodyStonePitchingConditionSerializer, WaterBodyStonePitchingSerializer, WaterBodyStreamIssuesSerializer, WaterBodySurplusWeirSerializer, WaterBodyTankIssuesSerializer, WaterBodyTankUniquenessSerializer, WaterBodyTypeSerializer
+     UserProfileUpdateSerializer, WaterBodyAyacutNonCultivationSerializer, WaterBodyBoundaryDropPointSerializer, WaterBodyBundSerializer, WaterBodyCroppingSerializer, WaterBodyCrossSectionSerializer, WaterBodyDepthSillLevelSerializer, WaterBodyExoticSpeciesSerializer, WaterBodyFamilyDistributionLandSerializer, WaterBodyFamilyNatureSerializer, WaterBodyFenceConditionSerializer, WaterBodyFenceTypeSerializer, WaterBodyGhatConditionSerializer, WaterBodyInletTypeSerializer, WaterBodyInvestmentNatureSerializer, WaterBodyIrrigationTankFunctionSerializer, WaterBodyMWLStoneSerializer, WaterBodyOoraniFunctionSerializer, WaterBodyOutletTypeSerializer, WaterBodyOwnerShipSerializer, WaterBodyShutterConditionSerializer, WaterBodyShutterSerializer, WaterBodySlitTrapSerializer, WaterBodySluiceConditionSerializer, WaterBodySluiceSerializer, WaterBodySourceSerializer, WaterBodyStonePitchingConditionSerializer, WaterBodyStonePitchingSerializer, WaterBodyStreamIssuesSerializer, WaterBodySurplusWeirSerializer, WaterBodyTankIssuesSerializer, WaterBodyTankUniquenessSerializer, WaterBodyTempleTankTypeSerializer, WaterBodyTypeSerializer
+
+logger = logging.getLogger(__name__)
+
 # Create your views here.
 
-
+class IndexView(TemplateView):
+    template_name = "index.html" #your_template
 
 class RoleViewSet(ModelViewSet):
     http_method_names = ['get','post','patch','delete']
@@ -47,6 +52,7 @@ class RoleViewSet(ModelViewSet):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class TalukViewSet(ModelViewSet):
+    logger.info('Calling Taluk View Set')
     http_method_names = ['get','post','patch','delete']
     queryset = Taluk.objects.all()
     serializer_class = TalukSerializer
@@ -57,6 +63,7 @@ class TalukViewSet(ModelViewSet):
 
     @action(detail=False, methods=['GET'])
     def All(self,request):
+        logger.info('Retriving All Taluks')
         queryset = Taluk.objects.values('id','name')
         if request.method == 'GET':
             return Response(list(queryset))
@@ -303,7 +310,7 @@ class WaterBodyShutterViewSet(ModelViewSet):
         if request.method == 'GET':
             return Response(list(queryset))
 
-class WaterBodySluiceConditionViewSet(ModelViewSet):
+class WaterBodyConditionViewSet(ModelViewSet):
     http_method_names = ['get','post','patch','delete']
     queryset = WaterBodySluiceCondition.objects.all()
     serializer_class = WaterBodySluiceConditionSerializer
@@ -480,6 +487,141 @@ class WaterBodyBoundaryDropPointViewSet(ModelViewSet):
     @action(detail=False, methods=['GET'])
     def All(self,request):
         queryset = WaterBodyBoundaryDropPoint.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyTypeViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyType.objects.all()
+    serializer_class = WaterBodyTypeSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyType.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyTempleTankTypeViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyTempleTankType.objects.all()
+    serializer_class = WaterBodyTempleTankTypeSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyTempleTankType.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyInletTypeViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyInletType.objects.all()
+    serializer_class = WaterBodyInletTypeSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyInletType.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodySlitTrapViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodySlitTrap.objects.all()
+    serializer_class = WaterBodySlitTrapSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodySlitTrap.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyOutletTypeViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyOutletType.objects.all()
+    serializer_class = WaterBodyOutletTypeSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyOutletType.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyGhatConditionViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyGhatCondition.objects.all()
+    serializer_class = WaterBodyGhatConditionSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyGhatCondition.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyFenceConditionViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyFenceCondition.objects.all()
+    serializer_class = WaterBodyFenceConditionSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyFenceCondition.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyFenceTypeViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyFenceType.objects.all()
+    serializer_class = WaterBodyFenceTypeSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyFenceType.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class  WaterBodyOoraniFunctionViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset =  WaterBodyOoraniFunction.objects.all()
+    serializer_class = WaterBodyOoraniFunctionSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset =  WaterBodyOoraniFunction.objects.values('id','name')
         if request.method == 'GET':
             return Response(list(queryset))
 

@@ -324,6 +324,78 @@ class WaterBodyBoundaryDropPoint(models.Model):
     lastModifiedBy = models.CharField(max_length=255,blank=True)
     lastModifiedDate = models.DateTimeField(auto_now=True)
 
+class WaterBodyType(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid4)
+    name = models.CharField(max_length=255,unique=True)
+    createdBy = models.CharField(max_length=255)
+    createdDate = models.DateTimeField(auto_now_add=True)
+    lastModifiedBy = models.CharField(max_length=255,blank=True)
+    lastModifiedDate = models.DateTimeField(auto_now=True)
+
+class WaterBodyTempleTankType(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid4)
+    name = models.CharField(max_length=255,unique=True)
+    createdBy = models.CharField(max_length=255)
+    createdDate = models.DateTimeField(auto_now_add=True)
+    lastModifiedBy = models.CharField(max_length=255,blank=True)
+    lastModifiedDate = models.DateTimeField(auto_now=True)
+
+class WaterBodyInletType(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid4)
+    name = models.CharField(max_length=255,unique=True)
+    createdBy = models.CharField(max_length=255)
+    createdDate = models.DateTimeField(auto_now_add=True)
+    lastModifiedBy = models.CharField(max_length=255,blank=True)
+    lastModifiedDate = models.DateTimeField(auto_now=True)
+
+class WaterBodySlitTrap(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid4)
+    name = models.CharField(max_length=255,unique=True)
+    createdBy = models.CharField(max_length=255)
+    createdDate = models.DateTimeField(auto_now_add=True)
+    lastModifiedBy = models.CharField(max_length=255,blank=True)
+    lastModifiedDate = models.DateTimeField(auto_now=True)
+
+class WaterBodyOutletType(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid4)
+    name = models.CharField(max_length=255,unique=True)
+    createdBy = models.CharField(max_length=255)
+    createdDate = models.DateTimeField(auto_now_add=True)
+    lastModifiedBy = models.CharField(max_length=255,blank=True)
+    lastModifiedDate = models.DateTimeField(auto_now=True)
+
+class WaterBodyGhatCondition(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid4)
+    name = models.CharField(max_length=255,unique=True)
+    createdBy = models.CharField(max_length=255)
+    createdDate = models.DateTimeField(auto_now_add=True)
+    lastModifiedBy = models.CharField(max_length=255,blank=True)
+    lastModifiedDate = models.DateTimeField(auto_now=True)
+
+class WaterBodyFenceCondition(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid4)
+    name = models.CharField(max_length=255,unique=True)
+    createdBy = models.CharField(max_length=255)
+    createdDate = models.DateTimeField(auto_now_add=True)
+    lastModifiedBy = models.CharField(max_length=255,blank=True)
+    lastModifiedDate = models.DateTimeField(auto_now=True)
+
+class WaterBodyFenceType(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid4)
+    name = models.CharField(max_length=255,unique=True)
+    createdBy = models.CharField(max_length=255)
+    createdDate = models.DateTimeField(auto_now_add=True)
+    lastModifiedBy = models.CharField(max_length=255,blank=True)
+    lastModifiedDate = models.DateTimeField(auto_now=True)
+
+class WaterBodyOoraniFunction(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid4)
+    name = models.CharField(max_length=255,unique=True)
+    createdBy = models.CharField(max_length=255)
+    createdDate = models.DateTimeField(auto_now_add=True)
+    lastModifiedBy = models.CharField(max_length=255,blank=True)
+    lastModifiedDate = models.DateTimeField(auto_now=True)
+
 
 class Month(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid4)

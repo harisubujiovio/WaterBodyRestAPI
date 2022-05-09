@@ -1,3 +1,4 @@
+from posixpath import basename
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 from . import views
@@ -21,7 +22,7 @@ router.register('waterbodystonepitchingconditions',views.WaterBodyStonePitchingC
 router.register('waterbodysluices',views.WaterBodySluiceViewSet)
 router.register('waterbodydepthsilllevels',views.WaterBodyDepthSillLevelViewSet)
 router.register('waterbodyshutters',views.WaterBodyShutterViewSet)
-router.register('waterbodysluiceconditions',views.WaterBodySluiceConditionViewSet)
+router.register('waterbodyconditions',views.WaterBodyConditionViewSet)
 router.register('waterbodyshutterconditions',views.WaterBodyShutterConditionViewSet)
 router.register('waterbodysurplusweirs',views.WaterBodySurplusWeirViewSet)
 router.register('waterbodymwlstones',views.WaterBodyMWLStoneViewSet)
@@ -33,6 +34,15 @@ router.register('waterbodyfamilynatures',views.WaterBodyFamilyNatureViewSet)
 router.register('waterbodyfamilydistributionlands',views.WaterBodyFamilyDistributionLandViewSet)
 router.register('waterbodytankuniqueness',views.WaterBodyTankUniquenessViewSet)
 router.register('waterbodyboundarydroppoints',views.WaterBodyBoundaryDropPointViewSet)
+router.register('waterbodytypes',views.WaterBodyTypeViewSet)
+router.register('waterbodytempletanktypes',views.WaterBodyTempleTankTypeViewSet)
+router.register('waterbodyinlettypes',views.WaterBodyInletTypeViewSet)
+router.register('waterbodyslittraps',views.WaterBodySlitTrapViewSet)
+router.register('waterbodyoutlettypes',views.WaterBodyOutletTypeViewSet)
+router.register('waterbodyghatconditions',views.WaterBodyGhatConditionViewSet)
+router.register('waterbodyfenceconditions',views.WaterBodyFenceConditionViewSet)
+router.register('waterbodyfencetypes',views.WaterBodyFenceTypeViewSet)
+router.register('waterbodyooranifunctions',views.WaterBodyOoraniFunctionViewSet)
 router.register('userprofile',views.UserProfileViewSet)
 router.register('allusers',views.UserList,basename='allusers')
 router.register('tankImage',views.TankImageViewSet)

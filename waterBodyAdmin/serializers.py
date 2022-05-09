@@ -1,6 +1,6 @@
 import os
 from rest_framework import serializers
-from .models import Block, Month, Panchayat, SurveyQuestionMetaData, Taluk, TankImage, TankMetaData, UserProfile, WaterBodyAyacutNonCultivation, WaterBodyBoundaryDropPoint, WaterBodyBund, WaterBodyCropping, WaterBodyCrossSection, WaterBodyDepthSillLevel, WaterBodyExoticSpecies, WaterBodyFamilyDistributionLand, WaterBodyFamilyNature, WaterBodyInvestmentNature, WaterBodyIrrigationTankFunction, WaterBodyMWLStone, WaterBodyOwnerShip, WaterBodyShutter, WaterBodyShutterCondition, WaterBodySluice, WaterBodySluiceCondition, WaterBodySource, WaterBodyStonePitching, WaterBodyStonePitchingCondition, WaterBodyStreamIssues, WaterBodySurplusWeir, WaterBodyTankIssues, WaterBodyTankUniqueness, WaterBodyType
+from .models import Block, Month, Panchayat, SurveyQuestionMetaData, Taluk, TankImage, TankMetaData, UserProfile, WaterBodyAyacutNonCultivation, WaterBodyBoundaryDropPoint, WaterBodyBund, WaterBodyCropping, WaterBodyCrossSection, WaterBodyDepthSillLevel, WaterBodyExoticSpecies, WaterBodyFamilyDistributionLand, WaterBodyFamilyNature, WaterBodyFenceCondition, WaterBodyFenceType, WaterBodyGhatCondition, WaterBodyInletType, WaterBodyInvestmentNature, WaterBodyIrrigationTankFunction, WaterBodyMWLStone, WaterBodyOoraniFunction, WaterBodyOutletType, WaterBodyOwnerShip, WaterBodyShutter, WaterBodyShutterCondition, WaterBodySlitTrap, WaterBodySluice, WaterBodySluiceCondition, WaterBodySource, WaterBodyStonePitching, WaterBodyStonePitchingCondition, WaterBodyStreamIssues, WaterBodySurplusWeir, WaterBodyTankIssues, WaterBodyTankUniqueness, WaterBodyTempleTankType, WaterBodyType
 from .models import Role
 
 class RoleUserSerializer(serializers.ModelSerializer):
@@ -266,6 +266,61 @@ class WaterBodyBoundaryDropPointSerializer(serializers.ModelSerializer):
     class Meta:
         model = WaterBodyBoundaryDropPoint
         fields = ['id','name','createdBy']
+
+class WaterBodyTypeSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyType
+        fields = ['id','name','createdBy']
+
+class WaterBodyTempleTankTypeSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyTempleTankType
+        fields = ['id','name','createdBy']
+
+class WaterBodyInletTypeSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyInletType
+        fields = ['id','name','createdBy']
+
+class WaterBodySlitTrapSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodySlitTrap
+        fields = ['id','name','createdBy']
+
+class WaterBodyOutletTypeSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyOutletType
+        fields = ['id','name','createdBy']
+
+class WaterBodyGhatConditionSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyGhatCondition
+        fields = ['id','name','createdBy']
+
+class WaterBodyFenceConditionSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyFenceCondition
+        fields = ['id','name','createdBy']
+
+class WaterBodyFenceTypeSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyFenceType
+        fields = ['id','name','createdBy']
+
+class WaterBodyOoraniFunctionSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyOoraniFunction
+        fields = ['id','name','createdBy']
+
 
 
 
