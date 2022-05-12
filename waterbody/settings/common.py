@@ -20,15 +20,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_u!9^96h_4a5#=-0vg7!w4oynse%0ql9!iqy9)08w^yruap15i'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -103,20 +94,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'waterbody.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'WaterBodyAdmin',
-        'USER': 'postgres',
-        'PASSWORD': '78fghAsd',
-        'HOST': '127.0.0.1',
-        'PORT': '5432'
-    }
-}
 
 
 # Password validation

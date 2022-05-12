@@ -18,11 +18,11 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.pagination import LimitOffsetPagination
 from django.views.generic import TemplateView
 
-from waterbody.settings import BASE_DIR
-from .models import Block, Month, Panchayat, Role, SurveyQuestionMetaData, Taluk, TankImage, TankMetaData, UserProfile, WaterBodyAyacutNonCultivation, WaterBodyBoundaryDropPoint, WaterBodyBund, WaterBodyCropping, WaterBodyCrossSection, WaterBodyDepthSillLevel, WaterBodyExoticSpecies, WaterBodyFamilyDistributionLand, WaterBodyFamilyNature, WaterBodyFenceCondition, WaterBodyFenceType, WaterBodyGhatCondition, WaterBodyInletType, WaterBodyInvestmentNature, WaterBodyIrrigationTankFunction, WaterBodyMWLStone, WaterBodyOoraniFunction, WaterBodyOutletType, WaterBodyOwnerShip, WaterBodyShutter, WaterBodyShutterCondition, WaterBodySlitTrap, WaterBodySluice, WaterBodySluiceCondition, WaterBodySource, WaterBodyStonePitching, WaterBodyStonePitchingCondition, WaterBodyStreamIssues, WaterBodySurplusWeir, WaterBodyTankIssues, WaterBodyTankUniqueness, WaterBodyTempleTankType, WaterBodyType
-from .serializers import BlockSerializer, MonthSerializer, PanchayatSerializer, RoleSerializer, RoleUpdateSerializer, SurveyQuestionDataSerializer, \
+from waterbody.settings.common import BASE_DIR
+from .models import Block, Month, Panchayat, Role, Section, SectionQuestion, SurveyQuestionMetaData, Taluk, TankImage, TankMetaData, UserProfile, WaterBodyAyacutNonCultivation, WaterBodyBasicDetailResponse, WaterBodyBoundaryDropPoint, WaterBodyBund, WaterBodyBundResponse, WaterBodyCropping, WaterBodyCrossSection, WaterBodyDepthSillLevel, WaterBodyDomesticResponse, WaterBodyDrinkingResponse, WaterBodyExoticSpecies, WaterBodyFamilyDistributionLand, WaterBodyFamilyNature, WaterBodyFenceCondition, WaterBodyFenceType, WaterBodyFencingResponse, WaterBodyFishingResponse, WaterBodyForLiveStockResponse, WaterBodyForPotteryResponse, WaterBodyFreeCatchmentResponse, WaterBodyGhatCondition, WaterBodyGhatsResponse, WaterBodyHarvestFromBundTreeResponse, WaterBodyHydrologicResponse, WaterBodyInletResponse, WaterBodyInletType, WaterBodyInvestmentNature, WaterBodyIrrigationCanalResponse, WaterBodyIrrigationResponse, WaterBodyIrrigationTankFunction, WaterBodyLotusCultivationResponse, WaterBodyMWLStone, WaterBodyOoraniFunction, WaterBodyOutletResponse, WaterBodyOutletType, WaterBodyOwnerShip, WaterBodySectionType, WaterBodyShutter, WaterBodyShutterCondition, WaterBodySlitTrap, WaterBodySluice, WaterBodySluiceCondition, WaterBodySluiceResponse, WaterBodySluiceUpStreamResponse, WaterBodySource, WaterBodySourceResponse, WaterBodySpreadResponse, WaterBodyStonePitching, WaterBodyStonePitchingCondition, WaterBodyStreamIssues, WaterBodySurPlusFromUpStreamResponse, WaterBodySurpluCoarseResponse, WaterBodySurplusWeir, WaterBodySurplusweirResponse, WaterBodySurveyResponse, WaterBodyTankBedCultivationResponse, WaterBodyTankIssues, WaterBodyTankUniqueness, WaterBodyTempleTankType, WaterBodyType
+from .serializers import BlockSerializer, MonthSerializer, PanchayatSerializer, RoleSerializer, RoleUpdateSerializer, SectionQuestionSerializer, SectionSerializer, SurveyQuestionDataSerializer, SurveyResponseListSerializer, \
      TalukSerializer, TankImageSerializer, TankMetaDataSerializer, UserProfileAddSerializer, UserProfileSerializer, \
-     UserProfileUpdateSerializer, WaterBodyAyacutNonCultivationSerializer, WaterBodyBoundaryDropPointSerializer, WaterBodyBundSerializer, WaterBodyCroppingSerializer, WaterBodyCrossSectionSerializer, WaterBodyDepthSillLevelSerializer, WaterBodyExoticSpeciesSerializer, WaterBodyFamilyDistributionLandSerializer, WaterBodyFamilyNatureSerializer, WaterBodyFenceConditionSerializer, WaterBodyFenceTypeSerializer, WaterBodyGhatConditionSerializer, WaterBodyInletTypeSerializer, WaterBodyInvestmentNatureSerializer, WaterBodyIrrigationTankFunctionSerializer, WaterBodyMWLStoneSerializer, WaterBodyOoraniFunctionSerializer, WaterBodyOutletTypeSerializer, WaterBodyOwnerShipSerializer, WaterBodyShutterConditionSerializer, WaterBodyShutterSerializer, WaterBodySlitTrapSerializer, WaterBodySluiceConditionSerializer, WaterBodySluiceSerializer, WaterBodySourceSerializer, WaterBodyStonePitchingConditionSerializer, WaterBodyStonePitchingSerializer, WaterBodyStreamIssuesSerializer, WaterBodySurplusWeirSerializer, WaterBodyTankIssuesSerializer, WaterBodyTankUniquenessSerializer, WaterBodyTempleTankTypeSerializer, WaterBodyTypeSerializer
+     UserProfileUpdateSerializer, WaterBodyAyacutNonCultivationSerializer, WaterBodyBasicDetailResponseSerializer, WaterBodyBoundaryDropPointSerializer, WaterBodyBundResponseSerializer, WaterBodyBundSerializer, WaterBodyCroppingSerializer, WaterBodyCrossSectionSerializer, WaterBodyDepthSillLevelSerializer, WaterBodyDomesticResponseSerializer, WaterBodyDrinkingResponseSerializer, WaterBodyExoticSpeciesSerializer, WaterBodyFamilyDistributionLandSerializer, WaterBodyFamilyNatureSerializer, WaterBodyFenceConditionSerializer, WaterBodyFenceTypeSerializer, WaterBodyFencingResponseSerializer, WaterBodyFishingResponseSerializer, WaterBodyForLiveStockResponseSerializer, WaterBodyForPotteryResponseSerializer, WaterBodyFreeCatchmentResponseSerializer, WaterBodyGhatConditionSerializer, WaterBodyGhatsResponseSerializer, WaterBodyHarvestFromBundTreeResponseSerializer, WaterBodyHydrologicResponseSerializer, WaterBodyInletResponseSerializer, WaterBodyInletTypeSerializer, WaterBodyInvestmentNatureSerializer, WaterBodyIrrigationCanalResponseSerializer, WaterBodyIrrigationResponseSerializer, WaterBodyIrrigationTankFunctionSerializer, WaterBodyLotusCultivationResponseSerializer, WaterBodyMWLStoneSerializer, WaterBodyOoraniFunctionSerializer, WaterBodyOutletResponseSerializer, WaterBodyOutletTypeSerializer, WaterBodyOwnerShipSerializer, WaterBodySectionTypePostSerializer, WaterBodySectionTypeSerializer, WaterBodyShutterConditionSerializer, WaterBodyShutterSerializer, WaterBodySlitTrapSerializer, WaterBodySluiceConditionSerializer, WaterBodySluiceResponseSerializer, WaterBodySluiceSerializer, WaterBodySluiceUpStreamResponseSerializer, WaterBodySourceResponseSerializer, WaterBodySourceSerializer, WaterBodySpreadResponseSerializer, WaterBodyStonePitchingConditionSerializer, WaterBodyStonePitchingSerializer, WaterBodyStreamIssuesSerializer, WaterBodySurPlusFromUpStreamResponseSerializer, WaterBodySurpluCoarseResponseSerializer, WaterBodySurplusWeirSerializer, WaterBodySurplusweirResponseSerializer, WaterBodySurveyResponseSerializer, WaterBodyTankBedCultivationResponseSerializer, WaterBodyTankIssuesSerializer, WaterBodyTankUniquenessSerializer, WaterBodyTempleTankTypeSerializer, WaterBodyTypeSerializer
 
 logger = logging.getLogger(__name__)
 
@@ -624,6 +624,402 @@ class  WaterBodyOoraniFunctionViewSet(ModelViewSet):
         queryset =  WaterBodyOoraniFunction.objects.values('id','name')
         if request.method == 'GET':
             return Response(list(queryset))
+
+class  SectionViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset =  Section.objects.all()
+    serializer_class = SectionSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset =  Section.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class SectionQuestionViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    #queryset =  SectionQuestion.objects.all()
+    serializer_class = SectionQuestionSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    #pagination_class = LimitOffsetPagination
+    #search_fields = ( 'name' )
+    #ordering_fields = [ 'name' ]
+
+    def get_queryset(self):
+        queryset = SectionQuestion.objects.all()
+        section_id = self.request.query_params.get('section_id')
+        if section_id is not None:
+            queryset = queryset.filter(section_id = section_id)
+
+        return queryset
+
+class WaterbodyTypeSectionViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    #queryset =  WaterBodySectionType.objects.all()
+    serializer_class = WaterBodySectionTypeSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    #pagination_class = LimitOffsetPagination
+    #search_fields = ( 'name' )
+    #ordering_fields = [ 'name' ]
+
+    def get_serializer_class(self):
+         if self.request.method == 'POST':
+             return WaterBodySectionTypePostSerializer
+         elif self.request.method == 'PATCH':
+             return WaterBodySectionTypePostSerializer
+         else: 
+            return WaterBodySectionTypeSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodySectionType.objects.all()
+        waterbodytype_id = self.request.query_params.get('waterbodytype_id')
+        if waterbodytype_id is not None:
+            queryset = queryset.filter(waterbodytype_id = waterbodytype_id)
+
+        return queryset
+
+class WaterbodyTypeSectionViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    #queryset =  WaterBodySectionType.objects.all()
+    serializer_class = WaterBodySectionTypeSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    #pagination_class = LimitOffsetPagination
+    #search_fields = ( 'name' )
+    #ordering_fields = [ 'name' ]
+
+    def get_serializer_class(self):
+         if self.request.method == 'POST':
+             return SurveyResponseListSerializer
+         else: 
+            return WaterBodySectionTypeSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodySectionType.objects.all()
+        waterbodytype_id = self.request.query_params.get('waterbodytype_id')
+        if waterbodytype_id is not None:
+            queryset = queryset.filter(waterbodytype_id = waterbodytype_id)
+
+        return queryset
+
+class WaterBodySurveyResponseViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset =  WaterBodySurveyResponse.objects.all()
+    serializer_class = WaterBodySurveyResponseSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = ( 'name' )
+    ordering_fields = [ 'name' ]
+
+    # def get_serializer_class(self):
+    #      if self.request.method == 'POST':
+    #          return WaterBodySurveyResponseSerializer
+    #      else: 
+    #         return WaterBodyGetSurveyResponseSerializer
+
+class WaterBodyBasicDetailResponseViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodyBasicDetailResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodyBasicDetailResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
+
+class WaterBodyHydrologicResponseViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodyHydrologicResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodyHydrologicResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
+
+class WaterBodySourceResponseViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodySourceResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodySourceResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
+
+class WaterBodyFreeCatchmentResponseViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodyFreeCatchmentResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodyFreeCatchmentResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
+
+class WaterBodySurPlusFromUpStreamResponseViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodySurPlusFromUpStreamResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodySurPlusFromUpStreamResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
+
+
+class WaterBodySluiceUpStreamResponseViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodySluiceUpStreamResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodySluiceUpStreamResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
+
+class WaterBodyIrrigationCanalResponseViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodyIrrigationCanalResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodyIrrigationCanalResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
+
+class WaterBodySpreadResponseViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodySpreadResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodySpreadResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
+
+class WaterBodyBundResponseViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodyBundResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodyBundResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
+
+class WaterBodySluiceResponseViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodySluiceResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodySluiceResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
+
+class WaterBodySurplusweirResponseViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodySurplusweirResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodySurplusweirResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
+
+class WaterBodySurpluCoarseResponseViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodySurpluCoarseResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodySurpluCoarseResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
+
+class WaterBodyIrrigationResponseViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodyIrrigationResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodyIrrigationResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
+
+class WaterBodyFishingResponseViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodyFishingResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodyFishingResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
+
+class WaterBodyLotusCultivationResponseViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodyLotusCultivationResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodyLotusCultivationResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
+
+class WaterBodyTankBedCultivationResponseViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodyTankBedCultivationResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodyTankBedCultivationResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
+
+class WaterBodyHarvestFromBundTreeResponseViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodyHarvestFromBundTreeResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodyHarvestFromBundTreeResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
+
+class WaterBodyForPotteryResponseViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodyForPotteryResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodyForPotteryResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
+
+class WaterBodyForLiveStockResponseViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodyForLiveStockResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodyForLiveStockResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
+
+class WaterBodyInletResponseSerializerViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodyInletResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodyInletResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
+
+class WaterBodyOutletResponseSerializerViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodyOutletResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodyOutletResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
+
+class WaterBodyGhatsResponseSerializerViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodyGhatsResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodyGhatsResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
+
+class WaterBodyFencingResponseSerializerViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodyFencingResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodyFencingResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
+
+class WaterBodyDomesticResponseSerializerViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodyDomesticResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodyDomesticResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
+
+class WaterBodyDrinkingResponseSerializerViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    serializer_class = WaterBodyDrinkingResponseSerializer
+
+    def get_queryset(self):
+        queryset = WaterBodyDrinkingResponse.objects.all()
+        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
+        if surveyResponse_id is not None:
+            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
+
+        return queryset
 
 
 class UserList(ListAPIView, GenericViewSet):

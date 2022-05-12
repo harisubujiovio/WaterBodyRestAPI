@@ -1,6 +1,8 @@
 import os
+from pickle import FALSE, TRUE
+from requests import Response
 from rest_framework import serializers
-from .models import Block, Month, Panchayat, SurveyQuestionMetaData, Taluk, TankImage, TankMetaData, UserProfile, WaterBodyAyacutNonCultivation, WaterBodyBoundaryDropPoint, WaterBodyBund, WaterBodyCropping, WaterBodyCrossSection, WaterBodyDepthSillLevel, WaterBodyExoticSpecies, WaterBodyFamilyDistributionLand, WaterBodyFamilyNature, WaterBodyFenceCondition, WaterBodyFenceType, WaterBodyGhatCondition, WaterBodyInletType, WaterBodyInvestmentNature, WaterBodyIrrigationTankFunction, WaterBodyMWLStone, WaterBodyOoraniFunction, WaterBodyOutletType, WaterBodyOwnerShip, WaterBodyShutter, WaterBodyShutterCondition, WaterBodySlitTrap, WaterBodySluice, WaterBodySluiceCondition, WaterBodySource, WaterBodyStonePitching, WaterBodyStonePitchingCondition, WaterBodyStreamIssues, WaterBodySurplusWeir, WaterBodyTankIssues, WaterBodyTankUniqueness, WaterBodyTempleTankType, WaterBodyType
+from .models import Block, Month, Panchayat, Section, SectionQuestion, SurveyQuestionMetaData, Taluk, TankImage, TankMetaData, UserProfile, WaterBodyAyacutNonCultivation, WaterBodyBasicDetailResponse, WaterBodyBoundaryDropPoint, WaterBodyBund, WaterBodyBundFunctionalites, WaterBodyBundIssues, WaterBodyBundResponse, WaterBodyBundStonePitchings, WaterBodyCropping, WaterBodyCrossSection, WaterBodyDepthSillLevel, WaterBodyDomesticResponse, WaterBodyDrinkingResponse, WaterBodyExoticSpecies, WaterBodyFamilyDistributionLand, WaterBodyFamilyNature, WaterBodyFenceCondition, WaterBodyFenceType, WaterBodyFencingResponse, WaterBodyFishingResponse, WaterBodyForLiveStockResponse, WaterBodyForPotteryResponse, WaterBodyFreeCatchmentResponse, WaterBodyFunctionalParameterResponse, WaterBodyGhatCondition, WaterBodyGhatsResponse, WaterBodyHarvestFromBundTreeResponse, WaterBodyHydrologicResponse, WaterBodyInletResponse, WaterBodyInletType, WaterBodyInvestmentNature, WaterBodyIrrigationCanalResponse, WaterBodyIrrigationResponse, WaterBodyIrrigationTankFunction, WaterBodyLotusCultivationResponse, WaterBodyMWLStone, WaterBodyOoraniFunction, WaterBodyOutletResponse, WaterBodyOutletType, WaterBodyOwnerShip, WaterBodySectionType, WaterBodyShutter, WaterBodyShutterCondition, WaterBodySlitTrap, WaterBodySluice, WaterBodySluiceCondition, WaterBodySluiceResponse, WaterBodySluiceUpStreamResponse, WaterBodySource, WaterBodySourceResponse, WaterBodySpreadIssues, WaterBodySpreadResponse, WaterBodyStonePitching, WaterBodyStonePitchingCondition, WaterBodyStreamIssues, WaterBodySurPlusFromUpStreamResponse, WaterBodySurpluCoarseIssues, WaterBodySurpluCoarseResponse, WaterBodySurplusWeir, WaterBodySurplusweirResponse, WaterBodySurveyResponse, WaterBodyTankBedCultivationResponse, WaterBodyTankBedDistributionLands, WaterBodyTankBedFamilies, WaterBodyTankIssues, WaterBodyTankUniqueness, WaterBodyTankUniquenessResponse, WaterBodyTempleTankType, WaterBodyType
 from .models import Role
 
 class RoleUserSerializer(serializers.ModelSerializer):
@@ -322,7 +324,438 @@ class WaterBodyOoraniFunctionSerializer(serializers.ModelSerializer):
         fields = ['id','name','createdBy']
 
 
+class SectionQuestionSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = SectionQuestion
+        fields = ['id','name','section','fieldType','createdBy']
 
+class SectionSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    questions = SectionQuestionSerializer(many=True,read_only=True)
+    class Meta:
+        model = Section
+        fields = ['id','name','createdBy','questions']
+
+class WaterBodySectionTypePostSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodySectionType
+        fields = ['id','section','waterbodytype','createdBy']
+
+class WaterBodySectionTypeSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    section = SectionSerializer(many=False,read_only=True)
+    class Meta:
+        model = WaterBodySectionType
+        fields = ['id','section','waterbodytype','createdBy']
+
+class JSONSectionQuestionSerializer(serializers.Serializer):
+    id = serializers.UUIDField()
+    name = serializers.CharField(max_length=255)
+    section = serializers.UUIDField()
+    response = serializers.CharField(max_length=255)
+   
+class JSONSectionSerializer(serializers.Serializer):
+    id = serializers.UUIDField()
+    name = serializers.CharField(max_length=255)
+    questions = JSONSectionQuestionSerializer(many=TRUE)
+
+
+class SurveyResponseSerializer(serializers.Serializer):
+     id = serializers.UUIDField()
+     section = JSONSectionSerializer(many=False)
+
+
+class SurveyResponseListSerializer(serializers.Serializer):
+     responses = serializers.ListField(child=SurveyResponseSerializer())
+
+     def save(self, **kwargs):
+         list = self.validated_data['responses']
+         for surveyList in list:
+           for key, value in surveyList.items():
+              print(key, value)
+
+# class WaterBodySurveyResponseSerializer(serializers.Serializer):
+#     waterbodytype = serializers.UUIDField(read_only=True)
+#     section = serializers.ListField()
+
+#     def save(self, **kwargs):
+#          print(self.validated_data['waterbodytype'])
+
+# class WaterSpreadAreaIssueResponseSerializer(serializers.ModelSerializer):
+#     id = serializers.UUIDField(read_only=True)
+#     class Meta:
+#         model = WaterSpreadAreaIssueResponse
+#         fields = ['id','createdBy']
+
+class WaterBodyDrinkingResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyDrinkingResponse
+        fields = ['id','surveyResponse','dependentfamiliesnumber', 'dugwellnumber','depthofdugwell',
+        'dugwellcondition','numberofborewells', 'depthofborewell',
+        'borewellcondition','createdBy']
+
+class WaterBodyDomesticResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyDomesticResponse
+        fields = ['id','surveyResponse','dependentfamiliesnumber','dependentlivestocksnumber',
+         'dugwellnumber','depthofdugwell','dugwellcondition','numberofborewells', 'depthofborewell',
+          'borewellcondition','createdBy']
+
+class WaterBodyFencingResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyFencingResponse
+        fields = ['id','surveyResponse','fencetype','fencecondition','createdBy']
+
+class WaterBodyGhatsResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyGhatsResponse
+        fields = ['id','surveyResponse','ghatnumber','ghatcondition','numberofghatsneeded','createdBy']
+
+class WaterBodyOutletResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyOutletResponse
+        fields = ['id','surveyResponse','outletnumber','outlettype','outletcondition','createdBy']
+
+class WaterBodyInletResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyInletResponse
+        fields = ['id','surveyResponse','inletnumber','inlettype','inletcondition',
+         'slittrap','createdBy']
+
+class WaterBodyForLiveStockResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyForLiveStockResponse
+        fields = ['id','surveyResponse', 'dependentfamiliesnumber','dependentanimalssnumber','createdBy']
+
+class WaterBodyForPotteryResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyForPotteryResponse
+        fields = ['id','surveyResponse', 'dependentfamiliesnumber','createdBy']
+
+class WaterBodyHarvestFromBundTreeResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyHarvestFromBundTreeResponse
+        fields = ['id','surveyResponse', 'investmentnature', 'monthofrelease','monthofharvest',
+         'investment','returns', 'dependentfamiliesnumber','createdBy']
+
+class WaterBodyTankBedDistributionLandsSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    tankBedResponse = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyTankBedDistributionLands
+        fields = ['id','tankBedResponse', 'distributionLand','createdBy']
+
+class WaterBodyWaterBodyTankBedFamiliesSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    tankBedResponse = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyTankBedFamilies
+        fields = ['id','tankBedResponse', 'family','createdBy']
+
+class WaterBodyTankBedCultivationResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    Families = WaterBodyWaterBodyTankBedFamiliesSerializer(many=True)
+    DistributionLands = WaterBodyTankBedDistributionLandsSerializer(many=True)
+    class Meta:
+        model = WaterBodyTankBedCultivationResponse
+        fields = ['id','surveyResponse', 'area', 'dependentfamiliesnumber','monthofrelease', 'monthofharvest',
+         'investment','returns','Families','DistributionLands', 'createdBy']
+
+    def create(self, validated_data):
+        Families = validated_data.pop('Families')
+        DistributionLands = validated_data.pop('DistributionLands')
+        tankbedCultivation_response = WaterBodyTankBedCultivationResponse.objects.create(**validated_data)
+        for family in Families:
+            WaterBodyTankBedFamilies.objects.create(tankBedResponse=tankbedCultivation_response,**family)
+        for land in DistributionLands:
+            WaterBodyTankBedDistributionLands.objects.create(tankBedResponse=tankbedCultivation_response,**land)
+        return tankbedCultivation_response
+
+class WaterBodyLotusCultivationResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyLotusCultivationResponse
+        fields = ['id','surveyResponse', 'investmentnature', 'monthofrelease','monthofharvest',
+         'investment','returns', 'dependentfamiliesnumber','createdBy']
+
+class WaterBodyFishingResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyFishingResponse
+        fields = ['id','surveyResponse', 'investmentnature', 'monthofrelease','monthofharvest',
+         'investment','returns', 'dependentfamiliesnumber','createdBy']
+
+class WaterBodyIrrigationResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyIrrigationResponse
+        fields = ['id','surveyResponse', 'ayacutcultivation', 'ayacutnature','cropping',
+         'firstcropname','secondcropname', 'thirdcropname','dugwellnumber','depthofdugwell',
+         'borewellnumber','maxborewelldepth','dependentfamiliesnumber','createdBy']
+
+class WaterBodySurpluCoarseIssuesSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    surpluCoarseResponse = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodySurpluCoarseIssues
+        fields = ['id','surpluCoarseResponse', 'issue','createdBy']
+
+class WaterBodySurpluCoarseResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    Issues = WaterBodySurpluCoarseIssuesSerializer(many=True)
+    class Meta:
+        model = WaterBodySurpluCoarseResponse
+        fields = ['id','surveyResponse', 'tankName', 'streamtype','actualbreadth',
+         'currentbreadth','actualbottomwidth', 'currentbottomwidth','actualdepth','currentdepth','Issues',
+         'createdBy']
+
+    def create(self, validated_data):
+        Issues = validated_data.pop('Issues')
+        surpluCoarse_response = WaterBodySurpluCoarseResponse.objects.create(**validated_data)
+        for issue in Issues:
+            WaterBodySurpluCoarseIssues.objects.create(surpluCoarseResponse=surpluCoarse_response,**issue)
+        return surpluCoarse_response
+
+class WaterBodySurplusweirResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodySurplusweirResponse
+        fields = ['id','surveyResponse', 'surplusweirnumber', 'surplusweirtype','surplusweirLength',
+         'silllevelDepth','mwlstones', 'mwlstonedepth','leveldifference','shutterType',
+         'surplusweircondition','createdBy']
+
+class WaterBodySluiceResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodySluiceResponse
+        fields = ['id','surveyResponse', 'sluicenumber', 'sluicetype','sluiceIrrigatedArea',
+         'silllevelDepth','shutterType', 'sluicecondition','shuttercondition',
+         'sluicefeedanywaterbody','waterbodyname', 'createdBy']
+
+class WaterBodyBundStonePitchingsSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    bundResponse = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyBundStonePitchings
+        fields = ['id','bundResponse', 'stonePitching','createdBy']
+
+class WaterBodyBundFunctionalitesSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    bundResponse = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyBundFunctionalites
+        fields = ['id','bundResponse', 'bundfunctionality','createdBy']
+
+class WaterBodyBundIssuesSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    bundResponse = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyBundIssues
+        fields = ['id','bundResponse', 'issue','createdBy']
+
+class WaterBodyBundResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    Issues = WaterBodyBundIssuesSerializer(many=True)
+    Functionalites = WaterBodyBundFunctionalitesSerializer(many=True)
+    Pitchings = WaterBodyBundStonePitchingsSerializer(many=True)
+    class Meta:
+        model = WaterBodyBundResponse
+        fields = ['id','surveyResponse', 'bundlength','bundtopwidth' ,'slopeforeside',
+         'sloperearside','bundreventment','bundreventmentinterval', 'stonepitchingcondition', 
+         'Issues','Functionalites', 'Pitchings', 'createdBy']
+
+    def create(self, validated_data):
+        Issues = validated_data.pop('Issues')
+        Functionalites = validated_data.pop('Functionalites')
+        Pitchings = validated_data.pop('Pitchings')
+        bund_response = WaterBodyBundResponse.objects.create(**validated_data)
+        for issue in Issues:
+            WaterBodyBundIssues.objects.create(bundResponse=bund_response,**issue)
+        for functionality in Functionalites:
+            WaterBodyBundFunctionalites.objects.create(bundResponse=bund_response,**functionality)
+        for pitching in Pitchings:
+            WaterBodyBundStonePitchings.objects.create(bundResponse=bund_response,**pitching)
+        return bund_response
+
+
+class WaterBodySpreadIssuesSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    spreadResponse = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodySpreadIssues
+        fields = ['id','spreadResponse', 'issue','createdBy']
+
+class WaterBodySpreadResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    Issues = WaterBodySpreadIssuesSerializer(many=True)
+    class Meta:
+        model = WaterBodySpreadResponse
+        fields = ['id','surveyResponse', 'speciesName','waterspreadareapercentage' ,'Issues',  'createdBy']
+
+    def create(self, validated_data):
+        Issues = validated_data.pop('Issues')
+        spread_response = WaterBodySpreadResponse.objects.create(**validated_data)
+        for issue in Issues:
+            WaterBodySpreadIssues.objects.create(spreadResponse=spread_response,**issue)
+        return spread_response
+
+        
+
+class WaterBodyIrrigationCanalResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyIrrigationCanalResponse
+        fields = ['id','surveyResponse', 'canalName','sourcecontributiontype','bednature','numberofSupplies', 
+        'firstseassonstart', 'firstseassonend', 'secondseassonstart', 'secondseassonend', 'contributiontypepercentage',
+        'streamtype','actualtopwidth','currenttopwidth', 'actualbottomwidth','currentbottomwidth','actualdepth',
+        'currentdepth','createdBy']
+
+class WaterBodySluiceUpStreamResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodySluiceUpStreamResponse
+        fields = ['id','surveyResponse', 'tankName', 'tankSluiceNumber', 'sourcecontributiontype','contributiontypepercentage',
+        'seassonstart', 'seassonend','streamtype','actualbreadth','currentbreadth','actualbottomwidth',
+        'currentbottomwidth','actualdepth','currentdepth','createdBy']
+
+class WaterBodySurPlusFromUpStreamResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodySurPlusFromUpStreamResponse
+        fields = ['id','surveyResponse','tankName', 'sourcecontributiontype','contributiontypepercentage',
+        'seassonstart', 'seassonend','streamtype','actualbreadth','currentbreadth','actualbottomwidth',
+        'currentbottomwidth','actualdepth','currentdepth','createdBy']
+
+
+class WaterBodyFreeCatchmentResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyFreeCatchmentResponse
+        fields = ['id','surveyResponse', 'sourcecontributiontype','contributiontypepercentage','seassonstart', 
+        'seassonend','streamtype','actualbreadth','currentbreadth','actualbottomwidth','currentbottomwidth',
+        'actualdepth','currentdepth','createdBy']
+
+class WaterBodySourceResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodySourceResponse
+        fields = ['id','surveyResponse', 'source1', 'createdBy']
+
+class WaterBodyHydrologicResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyHydrologicResponse
+        fields = ['id','surveyResponse', 'waterspreadArea','registeredAyacut','capacity','numberoffillings','firstmonthfilling',
+            'monthdryup','numberofsources', 'createdBy']
+
+class WaterBodyBasicDetailResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyBasicDetailResponse
+        fields = ['id','surveyResponse', 'taluk','block','panchayat','village','waterbodytype','ownership', 'createdBy']
+
+class WaterBodyTankUniquenessResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    surveyResponse = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyTankUniquenessResponse
+        fields = ['id','surveyResponse', 'name','createdBy']
+
+class WaterBodyFunctionalParameterResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    surveyResponse = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyFunctionalParameterResponse
+        fields = ['id','surveyResponse', 'tankFunction','createdBy']
+
+class WaterBodySurveyResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    TankUniqueness = WaterBodyTankUniquenessResponseSerializer(many=TRUE)
+    FunctionalParameters = WaterBodyFunctionalParameterResponseSerializer(many=TRUE)
+    # BasicDetail = WaterBodyBasicDetailResponseSerializer(many=False)
+    # HydrologicParameter = WaterBodyHydrologicResponseSerializer(many=False)
+    # SourceParameter = WaterBodySourceResponseSerializer(many=False)
+    # FreeCatchment = WaterBodyFreeCatchmentResponseSerializer(many=False)
+    # SluiceUpStream = WaterBodySluiceUpStreamResponseSerializer(many=False)
+    # IrrigationCanal = WaterBodyIrrigationCanalResponseSerializer(many=False)
+    # WaterbodySpread = WaterBodySpreadResponseSerializer(many=False)
+    class Meta:
+        model = WaterBodySurveyResponse
+        fields = ['id', 'name', 'neerkattipractice', 'legalissue','status', 'createdBy','TankUniqueness','FunctionalParameters']
+
+    def update(self, instance, validated_data):
+        print(instance.id)
+        TankUniqueness = self.validated_data.get("TankUniqueness")
+        FunctionalParameters = self.validated_data.get("FunctionalParameters")
+        if TankUniqueness is not None:
+            WaterBodyTankUniquenessResponse.objects.filter(surveyResponse_id=instance.id).delete()
+            if len(TankUniqueness) > 0:
+                for tankUnique in TankUniqueness:
+                   WaterBodyTankUniquenessResponse.objects.create(surveyResponse=instance,**tankUnique)
+        if FunctionalParameters is not None:
+            WaterBodyFunctionalParameterResponse.objects.filter(surveyResponse_id=instance.id).delete()
+            if len(FunctionalParameters) > 0:
+                for tankfunction in FunctionalParameters:
+                   WaterBodyFunctionalParameterResponse.objects.create(surveyResponse=instance,**tankfunction)
+        neerkattipractice = self.validated_data.get("neerkattipractice")
+        if neerkattipractice is not None:
+           instance.neerkattipractice = neerkattipractice
+        legalissue = self.validated_data.get("legalissue")
+        if legalissue is not None:
+           instance.legalissue = legalissue
+        status = self.validated_data.get("status")
+        if status is not None:
+           instance.status = status
+        instance.save()
+        return instance
+        
+
+    # def create(self, validated_data):
+    #     TankUniqueness = validated_data.pop('TankUniqueness')
+    #     surveyResponse = WaterBodySurveyResponse.objects.create(**validated_data)
+    #     for tankUnique in TankUniqueness:
+    #         WaterBodyTankUniquenessResponse.objects.create(surveyResponse=surveyResponse,**tankUnique)
+    #     return surveyResponse
+
+    # def create(self, validated_data):
+    #     print(validated_data)
+    #     basicdetail_data = validated_data.pop('BasicDetail')
+    #     hydrologicParameter_data = validated_data.pop('HydrologicParameter')
+    #     sourceParameter_data = validated_data.pop('SourceParameter')
+    #     freeCatchmentParameter_data = validated_data.pop('FreeCatchment')
+    #     #surPlusFromUpStreamParameter_data = validated_data.pop('SurPlusFromUpStream')
+    #     sluiceUpStreamParameter_data = validated_data.pop('SluiceUpStream')
+    #     irrigationCanalParameter_data = validated_data.pop('IrrigationCanal')
+    #     #waterbodySpread_data = validated_data.pop('WaterbodySpread')
+    #     surveyResponse = WaterBodySurveyResponse.objects.create(**validated_data)
+    #     WaterBodyBasicDetailResponse.objects.create(surveyResponse=surveyResponse, **basicdetail_data)
+    #     WaterBodyHydrologicResponse.objects.create(surveyResponse=surveyResponse, **hydrologicParameter_data)
+    #     WaterBodySourceResponse.objects.create(surveyResponse=surveyResponse, **sourceParameter_data)
+    #     WaterBodyFreeCatchmentResponse.objects.create(surveyResponse=surveyResponse, **freeCatchmentParameter_data)
+    #     #WaterBodySurPlusFromUpStreamResponse.objects.create(surveyResponse=surveyResponse, **surPlusFromUpStreamParameter_data)
+    #     WaterBodySluiceUpStreamResponse.objects.create(surveyResponse=surveyResponse, **sluiceUpStreamParameter_data)
+    #     WaterBodyIrrigationCanalResponse.objects.create(surveyResponse=surveyResponse, **irrigationCanalParameter_data)
+    #     #WaterBodySpreadResponse.objects.create(surveyResponse=surveyResponse, **waterbodySpread_data)
+    #     print(surveyResponse)
+    #     return surveyResponse
+       
+
+# class WaterBodyGetSurveyResponseSerializer(serializers.ModelSerializer):
+#     id = serializers.UUIDField(read_only=True)
+#     class Meta:
+#         model = WaterBodySurveyResponse
+#         fields = ['id', 'surveyno', 'createdBy']
 
 
         
