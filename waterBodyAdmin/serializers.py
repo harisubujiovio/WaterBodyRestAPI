@@ -679,7 +679,7 @@ class WaterBodyFunctionalParameterResponseSerializer(serializers.ModelSerializer
         model = WaterBodyFunctionalParameterResponse
         fields = ['id','surveyResponse', 'tankFunction','createdBy']
 
-class WaterBodySurveyResponseSerializer(serializers.ModelSerializer):
+class WaterBodySurveyResponseUpdateSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     TankUniqueness = WaterBodyTankUniquenessResponseSerializer(many=TRUE)
     FunctionalParameters = WaterBodyFunctionalParameterResponseSerializer(many=TRUE)
@@ -756,6 +756,52 @@ class WaterBodySurveyResponseSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = WaterBodySurveyResponse
 #         fields = ['id', 'surveyno', 'createdBy']
+
+class WaterBodySurveyResponseAddSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodySurveyResponse
+        fields = ['id', 'name', 'status', 'createdBy']
+
+class WaterBodySurveyResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    TankUniqueness = WaterBodyTankUniquenessResponseSerializer(many=TRUE)
+    FunctionalParameters = WaterBodyFunctionalParameterResponseSerializer(many=TRUE)
+    BasicDetail = WaterBodyBasicDetailResponseSerializer(many=True)
+    HydrologicParameter = WaterBodyHydrologicResponseSerializer(many=True)
+    SourceParameter = WaterBodySourceResponseSerializer(many=True)
+    FreeCatchment = WaterBodyFreeCatchmentResponseSerializer(many=True)
+    SurplusFromUpStream = WaterBodySurPlusFromUpStreamResponseSerializer(many=True)
+    SluiceUpStream = WaterBodySluiceUpStreamResponseSerializer(many=True)
+    IrigationCanal = WaterBodyIrrigationCanalResponseSerializer(many=True)
+    Spread = WaterBodySpreadResponseSerializer(many=True)
+    Bund = WaterBodyBundResponseSerializer(many=True)
+    Sluice = WaterBodySluiceResponseSerializer(many=True)
+    Surplusweir = WaterBodySurplusweirResponseSerializer(many=True)
+    SurpluCoarse = WaterBodySurpluCoarseResponseSerializer(many=True)
+    Irrigation = WaterBodyIrrigationResponseSerializer(many=True)
+    Fishing = WaterBodyFishingResponseSerializer(many=True)
+    LotusCultivation = WaterBodyLotusCultivationResponseSerializer(many=True)
+    TankBedCultivation = WaterBodyTankBedCultivationResponseSerializer(many=True)
+    HarvestFromBundTree = WaterBodyHarvestFromBundTreeResponseSerializer(many=True)
+    Pottery = WaterBodyForPotteryResponseSerializer(many=True)
+    LiveStock = WaterBodyForLiveStockResponseSerializer(many=True)
+    Inlets = WaterBodyInletResponseSerializer(many=True)
+    Outlets = WaterBodyOutletResponseSerializer(many=True)
+    Ghats = WaterBodyGhatsResponseSerializer(many=True)
+    Fencings = WaterBodyFencingResponseSerializer(many=True)
+    Domestics = WaterBodyDomesticResponseSerializer(many=True)
+    Drinkings = WaterBodyDrinkingResponseSerializer(many=True)
+    class Meta:
+        model = WaterBodySurveyResponse
+        fields = ['id', 'name', 'status', 'createdBy','TankUniqueness','FunctionalParameters',
+         'BasicDetail','HydrologicParameter', 'SourceParameter',
+        'FreeCatchment','SurplusFromUpStream','SluiceUpStream','IrigationCanal','Spread','Bund',
+        'Sluice','Surplusweir','SurpluCoarse','Irrigation','Fishing','LotusCultivation',
+        'TankBedCultivation','HarvestFromBundTree','Pottery','LiveStock','Inlets','Outlets',
+        'Ghats','Fencings','Domestics','Drinkings']
+
+
 
 
         
