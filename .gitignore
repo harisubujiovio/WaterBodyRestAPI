@@ -1,4 +1,6 @@
 *.pyc
+.env
 /media/
 /static/
 waterbodyapi.log
+Dockerfile

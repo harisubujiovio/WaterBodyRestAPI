@@ -12,9 +12,23 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from datetime import timedelta
 import os
 from pathlib import Path
+import environ
+
+# Initialise environment variables
+
+env = environ.Env()
+
+environ.Env.read_env()
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = int(env("DEBUG", default=1))
+
+SECRET_KEY = env('SECRET_KEY',default='django-insecure-_u!9^96h_4a5#=-0vg7!w4oynse%0ql9!iqy9)08w^yruap15i')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+ALLOWED_HOSTS = env("DJANGO_ALLOWED_HOSTS").split(" ")
 
 
 # Quick-start development settings - unsuitable for production
@@ -57,10 +71,9 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:4200',
-    'http://127.0.0.1:4200',
-]
+CORS_ALLOWED_ORIGINS = env("CORS_ALLOWED_ORIGINS").split(" ")
+
+
 REST_FRAMEWORK = {
     'COERCE_DECIMAL_TO_STRING': False,
     'PAGE_SIZE': 10,
@@ -94,7 +107,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'waterbody.wsgi.application'
 
-
+DATABASES = {
+    'default': {
+        'ENGINE': env('DB_ENGINE', default='django.db.backends.postgresql_psycopg2'),
+        'NAME': env('DB_NAME', default='WaterBodyAdmin'),
+        'USER': env('DB_USER', default='postgres'),
+        'PASSWORD': env('DB_PASSWORD', default='78fghAsd!'),
+        'HOST': env('DB_HOST', default='db'),
+        'PORT': env('DB_PORT', default='5432'),
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -130,7 +152,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
@@ -142,6 +164,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'core.User'
+
 
 DJOSER = { 
     'SERIALIZERS': {
