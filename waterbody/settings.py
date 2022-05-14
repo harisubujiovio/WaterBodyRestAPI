@@ -206,3 +206,6 @@ LOGGING = {
         'level': os.environ.get('DJANGO_LOG_LEVEL','INFO'),
     },
 }
+
+# TESTING = False
+# TEST_RUNNER = "waterbody.test_runner.CoreTestRunner"
