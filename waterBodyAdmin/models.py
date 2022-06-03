@@ -117,12 +117,15 @@ class Block(models.Model):
 
 class Panchayat(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid4)
-    blockId = models.ForeignKey(Block,on_delete=models.CASCADE)
+    blockId = models.ForeignKey(Block,on_delete=models.CASCADE,related_name='panchayats')
     name = models.CharField(max_length=255,unique=True)
     createdBy = models.CharField(max_length=255)
     createdDate = models.DateTimeField(auto_now_add=True)
     lastModifiedBy = models.CharField(max_length=255,blank=True)
     lastModifiedDate = models.DateTimeField(auto_now=True)
+
+    def blockname(self):
+        return self.blockId.name
 
 class WaterBodyType(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid4)

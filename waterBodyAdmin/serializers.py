@@ -99,256 +99,256 @@ class TalukSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = Taluk
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class BlockSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = Block
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class PanchayatSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = Panchayat
-        fields = ['id','blockId','name','createdBy']
+        fields = ['id','blockId','blockname', 'name','createdBy','lastModifiedBy']
 
 class WaterBodyTypeSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyType
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyOwnerShipSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyOwnerShip
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class MonthSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = Month
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodySourceSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodySource
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyCrossSectionSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyCrossSection
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyStreamIssuesSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyStreamIssues
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyExoticSpeciesSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyExoticSpecies
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyBundSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyBund
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyTankIssuesSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyTankIssues
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyStonePitchingSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyStonePitching
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyStonePitchingConditionSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyStonePitchingCondition
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodySluiceSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodySluice
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyDepthSillLevelSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyDepthSillLevel
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyShutterSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyShutter
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodySluiceConditionSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodySluiceCondition
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyShutterConditionSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyShutterCondition
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodySurplusWeirSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodySurplusWeir
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyMWLStoneSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyMWLStone
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyIrrigationTankFunctionSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyIrrigationTankFunction
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyAyacutNonCultivationSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyAyacutNonCultivation
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyCroppingSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyCropping
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyInvestmentNatureSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyInvestmentNature
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyFamilyNatureSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyFamilyNature
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyFamilyDistributionLandSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyFamilyDistributionLand
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyTankUniquenessSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyTankUniqueness
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyBoundaryDropPointSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyBoundaryDropPoint
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyTypeSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyType
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyTempleTankTypeSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyTempleTankType
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyInletTypeSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyInletType
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodySlitTrapSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodySlitTrap
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyOutletTypeSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyOutletType
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyGhatConditionSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyGhatCondition
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyFenceConditionSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyFenceCondition
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyFenceTypeSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyFenceType
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 class WaterBodyOoraniFunctionSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyOoraniFunction
-        fields = ['id','name','createdBy']
+        fields = ['id','name','createdBy','lastModifiedBy']
 
 
 class SectionQuestionSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = SectionQuestion
-        fields = ['id','name','section','fieldType','createdBy']
+        fields = ['id','name','section','fieldType','createdBy','lastModifiedBy']
 
 class SectionSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     questions = SectionQuestionSerializer(many=True,read_only=True)
     class Meta:
         model = Section
-        fields = ['id','name','createdBy','questions']
+        fields = ['id','name','createdBy','lastModifiedBy','questions']
 
 class WaterBodySectionTypePostSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodySectionType
-        fields = ['id','section','waterbodytype','createdBy']
+        fields = ['id','section','waterbodytype','createdBy','lastModifiedBy']
 
 class WaterBodySectionTypeSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     section = SectionSerializer(many=False,read_only=True)
     class Meta:
         model = WaterBodySectionType
-        fields = ['id','section','waterbodytype','createdBy']
+        fields = ['id','section','waterbodytype','createdBy','lastModifiedBy']
 
 class JSONSectionQuestionSerializer(serializers.Serializer):
     id = serializers.UUIDField()

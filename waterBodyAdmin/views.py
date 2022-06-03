@@ -58,7 +58,7 @@ class TalukViewSet(ModelViewSet):
     serializer_class = TalukSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -74,7 +74,7 @@ class BlockViewSet(ModelViewSet):
     serializer_class = BlockSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -89,8 +89,8 @@ class PanchayatViewSet(ModelViewSet):
     serializer_class = PanchayatSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
-    ordering_fields = [ 'name' ]
+    search_fields = [ 'name','blockname' ]
+    ordering_fields = [ 'name','blockname' ]
 
     @action(detail=False, methods=['GET'])
     def AllPanchayatsByBlockId(self,request):
@@ -106,7 +106,7 @@ class WaterBodyTypeViewSet(ModelViewSet):
     serializer_class = WaterBodyTypeSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -121,7 +121,7 @@ class WaterBodyOwnerShipViewSet(ModelViewSet):
     serializer_class = WaterBodyOwnerShipSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -136,7 +136,7 @@ class MonthViewSet(ModelViewSet):
     serializer_class = MonthSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -151,7 +151,7 @@ class WaterBodySourceViewSet(ModelViewSet):
     serializer_class = WaterBodySourceSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -166,7 +166,7 @@ class WaterBodyCrossSectionViewSet(ModelViewSet):
     serializer_class = WaterBodyCrossSectionSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -181,7 +181,7 @@ class WaterBodyStreamIssuesViewSet(ModelViewSet):
     serializer_class = WaterBodyStreamIssuesSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -196,7 +196,7 @@ class WaterBodyExoticSpeciesViewSet(ModelViewSet):
     serializer_class = WaterBodyExoticSpeciesSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -211,7 +211,7 @@ class WaterBodyBundViewSet(ModelViewSet):
     serializer_class = WaterBodyBundSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -226,7 +226,7 @@ class WaterBodyTankIssuesViewSet(ModelViewSet):
     serializer_class = WaterBodyTankIssuesSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -241,7 +241,7 @@ class WaterBodyStonePitchingViewSet(ModelViewSet):
     serializer_class = WaterBodyStonePitchingSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -256,7 +256,7 @@ class WaterBodyStonePitchingConditionViewSet(ModelViewSet):
     serializer_class = WaterBodyStonePitchingConditionSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -271,7 +271,7 @@ class WaterBodySluiceViewSet(ModelViewSet):
     serializer_class = WaterBodySluiceSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -286,7 +286,7 @@ class WaterBodyDepthSillLevelViewSet(ModelViewSet):
     serializer_class = WaterBodyDepthSillLevelSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -301,7 +301,7 @@ class WaterBodyShutterViewSet(ModelViewSet):
     serializer_class = WaterBodyShutterSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -316,7 +316,7 @@ class WaterBodyConditionViewSet(ModelViewSet):
     serializer_class = WaterBodySluiceConditionSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -331,7 +331,7 @@ class WaterBodyShutterConditionViewSet(ModelViewSet):
     serializer_class = WaterBodyShutterConditionSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -346,7 +346,7 @@ class WaterBodySurplusWeirViewSet(ModelViewSet):
     serializer_class = WaterBodySurplusWeirSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -361,7 +361,7 @@ class WaterBodyMWLStoneViewSet(ModelViewSet):
     serializer_class = WaterBodyMWLStoneSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -376,7 +376,7 @@ class WaterBodyIrrigationTankFunctionViewSet(ModelViewSet):
     serializer_class = WaterBodyIrrigationTankFunctionSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -391,7 +391,7 @@ class WaterBodyAyacutNonCultivationViewSet(ModelViewSet):
     serializer_class = WaterBodyAyacutNonCultivationSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -406,7 +406,7 @@ class WaterBodyCroppingViewSet(ModelViewSet):
     serializer_class = WaterBodyCroppingSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -421,7 +421,7 @@ class WaterBodyInvestmentNatureViewSet(ModelViewSet):
     serializer_class = WaterBodyInvestmentNatureSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -436,7 +436,7 @@ class WaterBodyFamilyNatureViewSet(ModelViewSet):
     serializer_class = WaterBodyFamilyNatureSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -451,7 +451,7 @@ class WaterBodyFamilyDistributionLandViewSet(ModelViewSet):
     serializer_class = WaterBodyFamilyDistributionLandSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -466,7 +466,7 @@ class WaterBodyTankUniquenessViewSet(ModelViewSet):
     serializer_class = WaterBodyTankUniquenessSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -481,7 +481,7 @@ class WaterBodyBoundaryDropPointViewSet(ModelViewSet):
     serializer_class = WaterBodyBoundaryDropPointSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -496,7 +496,7 @@ class WaterBodyTypeViewSet(ModelViewSet):
     serializer_class = WaterBodyTypeSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -511,7 +511,7 @@ class WaterBodyTempleTankTypeViewSet(ModelViewSet):
     serializer_class = WaterBodyTempleTankTypeSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -526,7 +526,7 @@ class WaterBodyInletTypeViewSet(ModelViewSet):
     serializer_class = WaterBodyInletTypeSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -541,7 +541,7 @@ class WaterBodySlitTrapViewSet(ModelViewSet):
     serializer_class = WaterBodySlitTrapSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -556,7 +556,7 @@ class WaterBodyOutletTypeViewSet(ModelViewSet):
     serializer_class = WaterBodyOutletTypeSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -571,7 +571,7 @@ class WaterBodyGhatConditionViewSet(ModelViewSet):
     serializer_class = WaterBodyGhatConditionSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -586,7 +586,7 @@ class WaterBodyFenceConditionViewSet(ModelViewSet):
     serializer_class = WaterBodyFenceConditionSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -601,7 +601,7 @@ class WaterBodyFenceTypeViewSet(ModelViewSet):
     serializer_class = WaterBodyFenceTypeSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -616,7 +616,7 @@ class  WaterBodyOoraniFunctionViewSet(ModelViewSet):
     serializer_class = WaterBodyOoraniFunctionSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
@@ -631,7 +631,7 @@ class  SectionViewSet(ModelViewSet):
     serializer_class = SectionSerializer
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = LimitOffsetPagination
-    search_fields = ( 'name' )
+    search_fields = [ 'name' ]
     ordering_fields = [ 'name' ]
 
     @action(detail=False, methods=['GET'])
