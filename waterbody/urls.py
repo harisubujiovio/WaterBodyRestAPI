@@ -18,7 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-from waterBodyAdmin.views import UserProfileViewSet
+from waterBodyAdmin.views import UserProfileViewSet,CardSummaryView
 
 urlpatterns = [
     path('', include('core.urls')),
@@ -28,6 +28,7 @@ urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
     path('__debug__/', include('debug_toolbar.urls')),
+    path('waterBodyAdmin/cardsummary/', CardSummaryView.as_view()),
     path('waterBodyAdmin/userprofile/<pk>/user/<int:user_id>/', UserProfileViewSet.as_view({"delete": "deleteUser"})),
     path('waterBodyAdmin/userprofile/<pk>/updateuser/<int:user_id>/', UserProfileViewSet.as_view({"patch": "updateUser"}))
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

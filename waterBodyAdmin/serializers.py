@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 import os
 from pickle import FALSE, TRUE
 from requests import Response
@@ -349,6 +350,17 @@ class WaterBodySectionTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = WaterBodySectionType
         fields = ['id','section','waterbodytype','createdBy','lastModifiedBy']
+
+class ChartDataSerializer(serializers.Serializer):
+    label = serializers.CharField(max_length=255)
+    name = serializers.CharField(max_length=255)
+    data = serializers.DecimalField(max_digits=6,decimal_places=2)
+
+class CardSummarySerializer(serializers.Serializer):
+    label = serializers.CharField(max_length=255)
+    name = serializers.CharField(max_length=255)
+    data = serializers.DecimalField(max_digits=6,decimal_places=2)
+    filterKey = serializers.CharField(max_length=255)
 
 class JSONSectionQuestionSerializer(serializers.Serializer):
     id = serializers.UUIDField()

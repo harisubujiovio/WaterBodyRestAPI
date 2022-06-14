@@ -3,6 +3,13 @@ from django.db import models
 from uuid import uuid4
 
 # Create your models here.
+class CardSummaryData(models.Model):
+    label = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    data = models.IntegerField()
+    filterKey = models.CharField(max_length=255)
+    class Meta:
+     managed = False
 
 class Role(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid4)
