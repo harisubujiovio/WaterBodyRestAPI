@@ -360,6 +360,7 @@ class CardSummarySerializer(serializers.Serializer):
     name = serializers.CharField(max_length=255)
     data = serializers.DecimalField(max_digits=6,decimal_places=2)
     filterKey = serializers.CharField(max_length=255)
+    icon = serializers.CharField(max_length=255)
 
 class JSONSectionQuestionSerializer(serializers.Serializer):
     id = serializers.UUIDField()

@@ -8,6 +8,7 @@ class CardSummaryData(models.Model):
     name = models.CharField(max_length=255)
     data = models.IntegerField()
     filterKey = models.CharField(max_length=255)
+    icon = models.CharField(max_length=255)
     class Meta:
      managed = False
 

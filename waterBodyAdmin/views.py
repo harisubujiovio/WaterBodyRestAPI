@@ -18,6 +18,7 @@ from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework.generics import ListAPIView
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.views.generic import TemplateView
 
 from waterbody.settings import BASE_DIR
@@ -41,23 +42,27 @@ class CardSummaryView(APIView):
      numberofTanks = TankMetaData.objects.aggregate(NumberofTank=Count("Unique_id"))
      tanksummaryData.label = "Tank Summary"
      tanksummaryData.name = "TankSummaryCard"
+     tanksummaryData.icon = "WaterBody"
      tanksummaryData.data = numberofTanks["NumberofTank"]
      waterbodySurveyResponsesummaryData = CardSummaryData() 
      numberofWaterBodySurveyResponse = WaterBodySurveyResponse.objects.aggregate(NumberofWaterBodyResponse=Count("id"))
      waterbodySurveyResponsesummaryData.label = "Response Summary"
      waterbodySurveyResponsesummaryData.name = "ResponseSummaryCard"
+     waterbodySurveyResponsesummaryData.icon = "Location"
      waterbodySurveyResponsesummaryData.data = numberofWaterBodySurveyResponse["NumberofWaterBodyResponse"]
      usersummaryData = CardSummaryData() 
      numberofUsers = UserProfile.objects.aggregate(NumberofUsers=Count("id"))
      usersummaryData.label = "Total Users"
      usersummaryData.name = "UserCard"
      usersummaryData.data = numberofUsers["NumberofUsers"]
+     usersummaryData.icon = "Users"
      fieldworkersummaryData = CardSummaryData() 
      (roleId,name) = Role.objects.filter(name='FieldReviewer').values_list('id','name').first()
      numberoffieldWorkers = UserProfile.objects.filter(role=roleId).aggregate(NumberofUsers=Count("id"))
      fieldworkersummaryData.label = "Field Workers"
      fieldworkersummaryData.name = "FieldWorkerCard"
      fieldworkersummaryData.filterKey=roleId
+     fieldworkersummaryData.icon = "fieldWorkers"
      fieldworkersummaryData.data = numberoffieldWorkers["NumberofUsers"]
      results = [tanksummaryData,fieldworkersummaryData,waterbodySurveyResponsesummaryData,usersummaryData]
      serializer = CardSummarySerializer(results,many=True)
@@ -1082,6 +1087,12 @@ class UserList(ListAPIView, GenericViewSet):
 class UserProfileViewSet(CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, GenericViewSet):
     http_method_names = ['get','post','patch','delete']
     queryset = UserProfile.objects.select_related('user').all()
+    permission_classes = [IsAuthenticated]
+
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            return [AllowAny()]
+        return [IsAuthenticated()]
 
     def get_serializer_class(self):
          if self.request.method == 'POST':
