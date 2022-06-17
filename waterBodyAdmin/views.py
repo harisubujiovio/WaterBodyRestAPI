@@ -1,17 +1,19 @@
+import json
 from pickle import FALSE, TRUE
 import os
 import logging
 from pprint import pprint
+import site
 from sre_parse import FLAGS
 from django.db import connection
 from fastkml import kml
 from bs4 import BeautifulSoup
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models.aggregates import Count, Max, Min, Avg, Sum
 from rest_framework.views import APIView
 from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, ListModelMixin
-from rest_framework.decorators import api_view,action
+from rest_framework.decorators import api_view,action,permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
@@ -29,12 +31,44 @@ from .serializers import BlockSerializer, CardSummarySerializer, ChartDataSerial
 
 logger = logging.getLogger(__name__)
 
-# Create your views here.
-@api_view()
-def cardsummary(request):
-     queryset = TankMetaData.objects.raw('select count(1) As data, ''Number of Goverment Data'' AS label from "waterBodyAdmin_tankmetadata"')
-     serializer = CardSummarySerializer(queryset,many=TRUE)
-     return Response(serializer.data)
+# # Create your views here.
+# @api_view()
+# def cardsummary(request):
+#      queryset = TankMetaData.objects.raw('select count(1) As data, ''Number of Goverment Data'' AS label from "waterBodyAdmin_tankmetadata"')
+#      serializer = CardSummarySerializer(queryset,many=TRUE)
+#      return Response(serializer.data)
+
+# @api_view(['POST','GET'])
+# @permission_classes([AllowAny])
+# def reset_user_password(request, **kwargs):
+#     # uses djoser to reset password
+#     logger.info(request.method)
+#     if request.method == 'GET':
+#        logger.info('This is get request')
+#        return render(request, 'http://localhost:4200/')
+#     else:
+#         current_site = Site.objects.get_current()
+#         #names of the inputs in the password reset form
+#         password = request.POST.get('new_password')
+#         password_confirmation = request.POST.get('password_confirm')
+#         #data to accept. the uid and token is obtained as keyword arguments in the url
+#         payload = {
+#             'uid': kwargs.get('uid'),
+#             'token': kwargs.get('token'),
+#             'new_password': password,
+#             're_new_password': password_confirmation
+#         }
+#         logger.info(kwargs.get('uid'))
+#         logger.info(kwargs.get('token'))
+#         djoser_password_reset_url = 'api/v1/auth/users/reset_password_confirm/'
+#         protocol = 'https'
+#         headers = {'content-Type': 'application/json'}
+#         if bool(request) and not request.is_secure():
+#             protocol = 'http'
+#         url = '{0}://{1}/{2}'.format(protocol, current_site,
+#                                      djoser_password_reset_url)
+#         return Response(url)
+
 
 class CardSummaryView(APIView):
     def get(self,request):
@@ -1082,6 +1116,20 @@ class UserList(ListAPIView, GenericViewSet):
             queryset = queryset.filter(role = roleId)
 
         return queryset
+
+     @action(["post"], detail=False)
+     def reset_password_confirm(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        serializer.user.set_password(serializer.data["new_password"])
+        serializer.user.save()
+
+        if settings.PASSWORD_CHANGED_EMAIL_CONFIRMATION:
+            context = {"user": serializer.user}
+            to = [get_user_email(serializer.user)]
+            settings.EMAIL.password_changed_confirmation(self.request, context).send(to)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class UserProfileViewSet(CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, GenericViewSet):
