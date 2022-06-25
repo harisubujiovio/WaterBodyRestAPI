@@ -135,6 +135,9 @@ class Block(models.Model):
     lastModifiedBy = models.CharField(max_length=255,blank=True)
     lastModifiedDate = models.DateTimeField(auto_now=True)
 
+    def districtname(self):
+        return self.district.name
+
 class Panchayat(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid4)
     code = models.IntegerField(null=True,blank=True)

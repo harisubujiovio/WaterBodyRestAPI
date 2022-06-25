@@ -104,19 +104,19 @@ class DistrictSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = District
-        fields = ['id','code','name','createdBy','lastModifiedBy']
+        fields = ['id','code','name', 'createdBy','lastModifiedBy']
 
 class BlockSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = Block
-        fields = ['id','code','name','createdBy','lastModifiedBy']
+        fields = ['id','code','name','districtname', 'createdBy','lastModifiedBy']
 
 class PanchayatSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = Panchayat
-        fields = ['id','code','blockId','blockname', 'name','createdBy','lastModifiedBy']
+        fields = ['id','code','block','blockname', 'name','createdBy','lastModifiedBy']
 
 class WaterBodyTypeSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
