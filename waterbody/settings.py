@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'core',
     'djoser',
-    'drf_yasg',
     'waterBodyAdmin',
     
 ]
@@ -118,7 +117,7 @@ WSGI_APPLICATION = 'waterbody.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': env('DB_ENGINE', default='django.db.backends.postgresql_psycopg2'),
-        'NAME': env('DB_NAME', default='NWaterBodyAdmin'),
+        'NAME': env('DB_NAME', default='WaterBodyAdmin'),
         'USER': env('DB_USER', default='postgres'),
         'PASSWORD': env('DB_PASSWORD', default='78fghAsd!'),
         'HOST': env('DB_HOST', default='db'),
