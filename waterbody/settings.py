@@ -118,7 +118,7 @@ WSGI_APPLICATION = 'waterbody.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': env('DB_ENGINE', default='django.db.backends.postgresql_psycopg2'),
-        'NAME': env('DB_NAME', default='WaterBodyAdmin'),
+        'NAME': env('DB_NAME', default='NWaterBodyAdmin'),
         'USER': env('DB_USER', default='postgres'),
         'PASSWORD': env('DB_PASSWORD', default='78fghAsd!'),
         'HOST': env('DB_HOST', default='db'),
@@ -177,7 +177,7 @@ AUTH_USER_MODEL = 'core.User'
 DJOSER = { 
     "USER_ID_FIELD": "username",
     "LOGIN_FIELD": "email",
-    "SEND_ACTIVATION_EMAIL": True,
+    # "SEND_ACTIVATION_EMAIL": True,
     "ACTIVATION_URL": "activate/{uid}/{token}",
     "PASSWORD_RESET_CONFIRM_URL": "password/reset/{uid}/{token}", # the reset link 
     'SERIALIZERS': {

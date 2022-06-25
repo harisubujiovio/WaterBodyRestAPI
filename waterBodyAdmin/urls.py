@@ -6,6 +6,7 @@ from . import views
 router = DefaultRouter()
 router.register('roles',views.RoleViewSet)
 router.register('taluks',views.TalukViewSet)
+router.register('districts',views.DistrictViewSet)
 router.register('blocks',views.BlockViewSet)
 router.register('panchayats',views.PanchayatViewSet)
 router.register('waterbodytypes',views.WaterBodyTypeViewSet)

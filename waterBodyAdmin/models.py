@@ -109,7 +109,17 @@ class TankSurveyQuestionResponse(models.Model):
 
 class Taluk(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid4)
+    code = models.IntegerField(null=True,blank=True)
     name = models.CharField(max_length=255,unique=True)
+    createdBy = models.CharField(max_length=255)
+    createdDate = models.DateTimeField(auto_now_add=True)
+    lastModifiedBy = models.CharField(max_length=255,blank=True)
+    lastModifiedDate = models.DateTimeField(auto_now=True)
+
+class District(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid4)
+    code = models.IntegerField(null=True,blank=True)
+    name = models.CharField(max_length=255)
     createdBy = models.CharField(max_length=255)
     createdDate = models.DateTimeField(auto_now_add=True)
     lastModifiedBy = models.CharField(max_length=255,blank=True)
@@ -117,7 +127,9 @@ class Taluk(models.Model):
 
 class Block(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid4)
-    name = models.CharField(max_length=255,unique=True)
+    code = models.IntegerField(null=True,blank=True)
+    district = models.ForeignKey(District,on_delete=models.CASCADE,related_name='blocks')
+    name = models.CharField(max_length=255)
     createdBy = models.CharField(max_length=255)
     createdDate = models.DateTimeField(auto_now_add=True)
     lastModifiedBy = models.CharField(max_length=255,blank=True)
@@ -125,15 +137,16 @@ class Block(models.Model):
 
 class Panchayat(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid4)
-    blockId = models.ForeignKey(Block,on_delete=models.CASCADE,related_name='panchayats')
-    name = models.CharField(max_length=255,unique=True)
+    code = models.IntegerField(null=True,blank=True)
+    block = models.ForeignKey(Block,on_delete=models.CASCADE,related_name='panchayats')
+    name = models.CharField(max_length=255)
     createdBy = models.CharField(max_length=255)
     createdDate = models.DateTimeField(auto_now_add=True)
     lastModifiedBy = models.CharField(max_length=255,blank=True)
     lastModifiedDate = models.DateTimeField(auto_now=True)
 
     def blockname(self):
-        return self.blockId.name
+        return self.block.name
 
 class WaterBodyType(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid4)
