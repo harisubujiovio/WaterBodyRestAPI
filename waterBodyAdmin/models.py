@@ -1,3 +1,4 @@
+from pickle import FALSE, TRUE
 from django.conf import settings
 from django.db import models
 from uuid import uuid4
@@ -23,9 +24,14 @@ class Role(models.Model):
 
 class UserProfile(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid4)
-    mobileNumber = models.CharField(max_length=20,blank=False)
-    phoneNumber = models.CharField(max_length=20,null=True,blank=True)
+    mobileNumber = models.CharField(max_length=20,blank=False,unique=TRUE)
     address = models.TextField()
+    district = models.TextField(blank=TRUE)
+    division = models.TextField(blank=TRUE)
+    region = models.TextField(blank=TRUE)
+    block = models.TextField(blank=TRUE)
+    state = models.TextField(blank=TRUE)
+    pincode = models.IntegerField(blank=FALSE)
     role = models.ForeignKey(Role,on_delete=models.PROTECT,blank=True,null=True,related_name='users')
     createdBy = models.CharField(max_length=255)
     createdDate = models.DateTimeField(auto_now_add=True)

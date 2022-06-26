@@ -2,6 +2,7 @@ import json
 from pickle import FALSE, TRUE
 import os
 import logging
+import urllib.request
 from pprint import pprint
 import site
 from sre_parse import FLAGS
@@ -1115,6 +1116,19 @@ class WaterBodyDrinkingResponseSerializerViewSet(ModelViewSet):
 
         return queryset
 
+class AddressView(APIView):
+    def get(self,request):
+     pincode = self.request.query_params.get('pincode')
+     if(pincode):
+      url = 'https://api.postalpincode.in/pincode/' + pincode
+      response = urllib.request.urlopen(url)
+      encoding = response.read().decode("utf-8")
+      dic = json.loads(encoding)
+      if(dic[0].get("Status") == 'Success' and len(dic[0].get('PostOffice')) > 0):
+        return Response(dic[0].get('PostOffice')[0])
+      else:
+        return Response('No address found for given pincode')
+     return Response('Pincode is required')
 
 class UserList(ListAPIView, GenericViewSet):
     #  queryset = UserProfile.objects.select_related('user').select_related('role').all()
@@ -1206,6 +1220,7 @@ class TankMetaDataViewSet(ModelViewSet):
 
     @action(detail=False, methods=['GET'],url_path=r'getTankMetaData/(?P<id>\d+)')
     def getTankMetaData(self, request, id):
+        logger.info(id)
         querySet = TankMetaData.objects.filter(tankId_id = id)
         serializer = TankMetaDataSerializer(querySet.first())
         return Response(serializer.data)

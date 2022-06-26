@@ -8,7 +8,7 @@ class RoleUserSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = UserProfile
-        fields = ['id','first_name','last_name','email','mobileNumber','phoneNumber','address']
+        fields = ['id','first_name','last_name','email','mobileNumber','address']
 
 class UserRoleSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
@@ -71,7 +71,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     ordering_fields = '__all__'
     class Meta:
         model = UserProfile
-        fields = ['id','user_id','username','first_name','last_name','email','mobileNumber','phoneNumber','address','role']
+        fields = ['id','user_id','username','first_name','last_name','email','mobileNumber','address','role','pincode']
 
 class UserSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
@@ -79,20 +79,22 @@ class UserSerializer(serializers.ModelSerializer):
     role = UserRoleSerializer(read_only=True)
     class Meta:
         model = UserProfile
-        fields = ['id','user_id','first_name','last_name','email','mobileNumber','phoneNumber','address','role']
+        fields = ['id','user_id','first_name','last_name','email','mobileNumber','address','role','pincode']
 
 class UserProfileAddSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     user_id = serializers.IntegerField()
     class Meta:
         model = UserProfile
-        fields = ['id','user_id','mobileNumber','phoneNumber','address','role']
+        fields = ['id','user_id','mobileNumber','address','role',
+        'district','division','region','block','state','pincode']
 
 
 class UserProfileUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ['first_name','last_name','mobileNumber','phoneNumber','address','role']
+        fields = ['first_name','last_name','mobileNumber','address','role',
+        'district','division','region','block','state','pincode']
 
 class TalukSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
