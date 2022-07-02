@@ -25,10 +25,10 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.views.generic import TemplateView
 
 from waterbody.settings import BASE_DIR
-from .models import Block, CardSummaryData, District, Month, Panchayat, Role, Section, SectionQuestion, SurveyQuestionMetaData, Taluk, TankImage, TankMetaData, UserProfile, WaterBodyAyacutNonCultivation, WaterBodyBasicDetailResponse, WaterBodyBoundaryDropPoint, WaterBodyBund, WaterBodyBundResponse, WaterBodyCropping, WaterBodyCrossSection, WaterBodyDepthSillLevel, WaterBodyDomesticResponse, WaterBodyDrinkingResponse, WaterBodyExoticSpecies, WaterBodyFamilyDistributionLand, WaterBodyFamilyNature, WaterBodyFenceCondition, WaterBodyFenceType, WaterBodyFencingResponse, WaterBodyFishingResponse, WaterBodyForLiveStockResponse, WaterBodyForPotteryResponse, WaterBodyFreeCatchmentResponse, WaterBodyGhatCondition, WaterBodyGhatsResponse, WaterBodyHarvestFromBundTreeResponse, WaterBodyHydrologicResponse, WaterBodyInletResponse, WaterBodyInletType, WaterBodyInvestmentNature, WaterBodyIrrigationCanalResponse, WaterBodyIrrigationResponse, WaterBodyIrrigationTankFunction, WaterBodyLotusCultivationResponse, WaterBodyMWLStone, WaterBodyOoraniFunction, WaterBodyOutletResponse, WaterBodyOutletType, WaterBodyOwnerShip, WaterBodySectionType, WaterBodyShutter, WaterBodyShutterCondition, WaterBodySlitTrap, WaterBodySluice, WaterBodySluiceCondition, WaterBodySluiceResponse, WaterBodySluiceUpStreamResponse, WaterBodySource, WaterBodySourceResponse, WaterBodySpreadResponse, WaterBodyStonePitching, WaterBodyStonePitchingCondition, WaterBodyStreamIssues, WaterBodySurPlusFromUpStreamResponse, WaterBodySurpluCoarseResponse, WaterBodySurplusWeir, WaterBodySurplusweirResponse, WaterBodySurveyResponse, WaterBodyTankBedCultivationResponse, WaterBodyTankIssues, WaterBodyTankUniqueness, WaterBodyTempleTankType, WaterBodyType
+from .models import Block, CardSummaryData, District, Month, Panchayat, Role, Section, SectionQuestion, SurveyQuestionMetaData, Taluk, TankImage, TankMetaData, UserProfile, WaterBodyAvailability, WaterBodyAyacutNonCultivation, WaterBodyBoundaryDropPoint, WaterBodyBund, WaterBodyBundIssues, WaterBodyBundResponse, WaterBodyCatchmentType, WaterBodyCropping, WaterBodyCrossSection, WaterBodyDepthSillLevel, WaterBodyDomesticResponse, WaterBodyDrinkingResponse, WaterBodyExoticSpecies, WaterBodyFamilyDistributionLand, WaterBodyFamilyNature, WaterBodyFenceCondition, WaterBodyFenceType, WaterBodyFencingResponse, WaterBodyFishingResponse, WaterBodyForLiveStockResponse, WaterBodyForPotteryResponse, WaterBodyFreeCatchmentResponse, WaterBodyGhatCondition, WaterBodyGhatsResponse, WaterBodyHarvestFromBundTreeResponse, WaterBodyHydrologicResponse, WaterBodyInletResponse, WaterBodyInletType, WaterBodyInvestmentNature, WaterBodyIrrigationCanalResponse, WaterBodyIrrigationResponse, WaterBodyIrrigationTankFunction, WaterBodyLotusCultivationResponse, WaterBodyMWLStone, WaterBodyOoraniFunction, WaterBodyOutletResponse, WaterBodyOutletType, WaterBodyOwnerShip, WaterBodySectionType, WaterBodyShutter, WaterBodyShutterCondition, WaterBodySlitTrap, WaterBodySluice, WaterBodySluiceCondition, WaterBodySluiceResponse, WaterBodySource, WaterBodySourceResponse, WaterBodySpreadIssues, WaterBodySpreadResponse, WaterBodyStonePitching, WaterBodyStonePitchingCondition, WaterBodyStreamIssues, WaterBodySurPlusFromUpStreamResponse, WaterBodySurpluCoarseResponse, WaterBodySurplusWeir, WaterBodySurplusweirResponse, WaterBodySurveyResponse, WaterBodyTankBedCultivationResponse, WaterBodyTankIssues, WaterBodyTankType, WaterBodyTankUniqueness, WaterBodyTempleTankType, WaterBodyType
 from .serializers import BlockSerializer, CardSummarySerializer, ChartDataSerializer, DistrictSerializer, MonthSerializer, PanchayatSerializer, RoleSerializer, RoleUpdateSerializer, SectionQuestionSerializer, SectionSerializer, SurveyQuestionDataSerializer, SurveyResponseListSerializer, \
      TalukSerializer, TankImageSerializer, TankMetaDataSerializer, UserProfileAddSerializer, UserProfileSerializer, \
-     UserProfileUpdateSerializer, WaterBodyAyacutNonCultivationSerializer, WaterBodyBasicDetailResponseSerializer, WaterBodyBoundaryDropPointSerializer, WaterBodyBundResponseSerializer, WaterBodyBundSerializer, WaterBodyCroppingSerializer, WaterBodyCrossSectionSerializer, WaterBodyDepthSillLevelSerializer, WaterBodyDomesticResponseSerializer, WaterBodyDrinkingResponseSerializer, WaterBodyExoticSpeciesSerializer, WaterBodyFamilyDistributionLandSerializer, WaterBodyFamilyNatureSerializer, WaterBodyFenceConditionSerializer, WaterBodyFenceTypeSerializer, WaterBodyFencingResponseSerializer, WaterBodyFishingResponseSerializer, WaterBodyForLiveStockResponseSerializer, WaterBodyForPotteryResponseSerializer, WaterBodyFreeCatchmentResponseSerializer, WaterBodyGhatConditionSerializer, WaterBodyGhatsResponseSerializer, WaterBodyHarvestFromBundTreeResponseSerializer, WaterBodyHydrologicResponseSerializer, WaterBodyInletResponseSerializer, WaterBodyInletTypeSerializer, WaterBodyInvestmentNatureSerializer, WaterBodyIrrigationCanalResponseSerializer, WaterBodyIrrigationResponseSerializer, WaterBodyIrrigationTankFunctionSerializer, WaterBodyLotusCultivationResponseSerializer, WaterBodyMWLStoneSerializer, WaterBodyOoraniFunctionSerializer, WaterBodyOutletResponseSerializer, WaterBodyOutletTypeSerializer, WaterBodyOwnerShipSerializer, WaterBodySectionTypePostSerializer, WaterBodySectionTypeSerializer, WaterBodyShutterConditionSerializer, WaterBodyShutterSerializer, WaterBodySlitTrapSerializer, WaterBodySluiceConditionSerializer, WaterBodySluiceResponseSerializer, WaterBodySluiceSerializer, WaterBodySluiceUpStreamResponseSerializer, WaterBodySourceResponseSerializer, WaterBodySourceSerializer, WaterBodySpreadResponseSerializer, WaterBodyStonePitchingConditionSerializer, WaterBodyStonePitchingSerializer, WaterBodyStreamIssuesSerializer, WaterBodySurPlusFromUpStreamResponseSerializer, WaterBodySurpluCoarseResponseSerializer, WaterBodySurplusWeirSerializer, WaterBodySurplusweirResponseSerializer, WaterBodySurveyResponseAddSerializer, WaterBodySurveyResponseSerializer, WaterBodySurveyResponseUpdateSerializer, WaterBodyTankBedCultivationResponseSerializer, WaterBodyTankIssuesSerializer, WaterBodyTankUniquenessSerializer, WaterBodyTempleTankTypeSerializer, WaterBodyTypeSerializer
+     UserProfileUpdateSerializer, WaterBodyAvailabilitySerializer, WaterBodyAyacutNonCultivationSerializer, WaterBodyBoundaryDropPointSerializer, WaterBodyBundIssuesSerializer, WaterBodyBundResponseSerializer, WaterBodyBundSerializer, WaterBodyCatchmentTypeSerializer, WaterBodyCroppingSerializer, WaterBodyCrossSectionSerializer, WaterBodyDepthSillLevelSerializer, WaterBodyDomesticResponseSerializer, WaterBodyDrinkingResponseSerializer, WaterBodyExoticSpeciesSerializer, WaterBodyFamilyDistributionLandSerializer, WaterBodyFamilyNatureSerializer, WaterBodyFenceConditionSerializer, WaterBodyFenceTypeSerializer, WaterBodyFencingResponseSerializer, WaterBodyFishingResponseSerializer, WaterBodyForLiveStockResponseSerializer, WaterBodyForPotteryResponseSerializer, WaterBodyFreeCatchmentResponseSerializer, WaterBodyGhatConditionSerializer, WaterBodyGhatsResponseSerializer, WaterBodyHarvestFromBundTreeResponseSerializer, WaterBodyHydrologicResponseSerializer, WaterBodyInletResponseSerializer, WaterBodyInletTypeSerializer, WaterBodyInvestmentNatureSerializer, WaterBodyIrrigationCanalResponseSerializer, WaterBodyIrrigationResponseSerializer, WaterBodyIrrigationTankFunctionSerializer, WaterBodyLotusCultivationResponseSerializer, WaterBodyMWLStoneSerializer, WaterBodyOoraniFunctionSerializer, WaterBodyOutletResponseSerializer, WaterBodyOutletTypeSerializer, WaterBodyOwnerShipSerializer, WaterBodySectionTypePostSerializer, WaterBodySectionTypeSerializer, WaterBodyShutterConditionSerializer, WaterBodyShutterSerializer, WaterBodySlitTrapSerializer, WaterBodySluiceConditionSerializer, WaterBodySluiceResponseSerializer, WaterBodySluiceSerializer, WaterBodySourceResponseSerializer, WaterBodySourceSerializer, WaterBodySpreadIssuesSerializer, WaterBodySpreadResponseSerializer, WaterBodyStonePitchingConditionSerializer, WaterBodyStonePitchingSerializer, WaterBodyStreamIssuesSerializer, WaterBodySurPlusFromUpStreamResponseSerializer, WaterBodySurpluCoarseResponseSerializer, WaterBodySurplusWeirSerializer, WaterBodySurplusweirResponseSerializer, WaterBodySurveyResponseAddSerializer, WaterBodySurveyResponseSerializer, WaterBodySurveyResponseUpdateSerializer, WaterBodyTankBedCultivationResponseSerializer, WaterBodyTankIssuesSerializer, WaterBodyTankTypeSerializer, WaterBodyTankUniquenessSerializer, WaterBodyTempleTankTypeSerializer, WaterBodyTypeSerializer
 
 logger = logging.getLogger(__name__)
 
@@ -673,6 +673,51 @@ class WaterBodyGhatConditionViewSet(ModelViewSet):
         if request.method == 'GET':
             return Response(list(queryset))
 
+class WaterBodyTankTypeViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyTankType.objects.all()
+    serializer_class = WaterBodyTankTypeSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = [ 'name' ]
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyTankType.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyAvailabilityViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyAvailability.objects.all()
+    serializer_class = WaterBodyAvailabilitySerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = [ 'name' ]
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyAvailability.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyCatchmentTypeViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset = WaterBodyCatchmentType.objects.all()
+    serializer_class = WaterBodyCatchmentTypeSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = [ 'name' ]
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset = WaterBodyCatchmentType.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
 class WaterBodyFenceConditionViewSet(ModelViewSet):
     http_method_names = ['get','post','patch','delete']
     queryset = WaterBodyFenceCondition.objects.all()
@@ -715,6 +760,36 @@ class  WaterBodyOoraniFunctionViewSet(ModelViewSet):
     @action(detail=False, methods=['GET'])
     def All(self,request):
         queryset =  WaterBodyOoraniFunction.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodyBundIssuesViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset =  WaterBodyBundIssues.objects.all()
+    serializer_class = WaterBodyBundIssuesSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = [ 'name' ]
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset =  WaterBodyBundIssues.objects.values('id','name')
+        if request.method == 'GET':
+            return Response(list(queryset))
+
+class WaterBodySpreadIssuesViewSet(ModelViewSet):
+    http_method_names = ['get','post','patch','delete']
+    queryset =  WaterBodySpreadIssues.objects.all()
+    serializer_class = WaterBodySpreadIssuesSerializer
+    filter_backends = (SearchFilter, OrderingFilter)
+    pagination_class = LimitOffsetPagination
+    search_fields = [ 'name' ]
+    ordering_fields = [ 'name' ]
+
+    @action(detail=False, methods=['GET'])
+    def All(self,request):
+        queryset =  WaterBodySpreadIssues.objects.values('id','name')
         if request.method == 'GET':
             return Response(list(queryset))
 
@@ -815,18 +890,6 @@ class WaterBodySurveyResponseViewSet(ModelViewSet):
          elif self.request.method == 'PATCH': 
             return WaterBodySurveyResponseUpdateSerializer
 
-class WaterBodyBasicDetailResponseViewSet(ModelViewSet):
-    http_method_names = ['get','post','patch','delete']
-    serializer_class = WaterBodyBasicDetailResponseSerializer
-
-    def get_queryset(self):
-        queryset = WaterBodyBasicDetailResponse.objects.all()
-        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
-        if surveyResponse_id is not None:
-            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
-
-        return queryset
-
 class WaterBodyHydrologicResponseViewSet(ModelViewSet):
     http_method_names = ['get','post','patch','delete']
     serializer_class = WaterBodyHydrologicResponseSerializer
@@ -876,17 +939,6 @@ class WaterBodySurPlusFromUpStreamResponseViewSet(ModelViewSet):
         return queryset
 
 
-class WaterBodySluiceUpStreamResponseViewSet(ModelViewSet):
-    http_method_names = ['get','post','patch','delete']
-    serializer_class = WaterBodySluiceUpStreamResponseSerializer
-
-    def get_queryset(self):
-        queryset = WaterBodySluiceUpStreamResponse.objects.all()
-        surveyResponse_id = self.request.query_params.get('surveyResponse_id')
-        if surveyResponse_id is not None:
-            queryset = queryset.filter(surveyResponse_id = surveyResponse_id)
-
-        return queryset
 
 class WaterBodyIrrigationCanalResponseViewSet(ModelViewSet):
     http_method_names = ['get','post','patch','delete']
