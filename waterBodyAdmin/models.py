@@ -56,6 +56,7 @@ class UserProfile(models.Model):
 
 class TankImage(models.Model):
    image = models.FileField(upload_to='tanksinmadurai/files')
+   filename = models.CharField(max_length=255,default='')
    createdBy = models.CharField(max_length=255)
    createdDate = models.DateTimeField(auto_now_add=True)
 
@@ -206,6 +207,22 @@ class WaterBodyBundIssues(models.Model):
     lastModifiedDate = models.DateTimeField(auto_now=True)
 
 class WaterBodySpreadIssues(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid4)
+    name = models.CharField(max_length=255,unique=True)
+    createdBy = models.CharField(max_length=255)
+    createdDate = models.DateTimeField(auto_now_add=True)
+    lastModifiedBy = models.CharField(max_length=255,blank=True)
+    lastModifiedDate = models.DateTimeField(auto_now=True)
+    
+class WaterBodyBarrelType(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid4)
+    name = models.CharField(max_length=255,unique=True)
+    createdBy = models.CharField(max_length=255)
+    createdDate = models.DateTimeField(auto_now_add=True)
+    lastModifiedBy = models.CharField(max_length=255,blank=True)
+    lastModifiedDate = models.DateTimeField(auto_now=True)
+
+class WaterBodyFieldChannelType(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid4)
     name = models.CharField(max_length=255,unique=True)
     createdBy = models.CharField(max_length=255)
@@ -605,21 +622,32 @@ class WaterBodyFreeCatchmentStreamIssues(models.Model):
     lastModifiedBy = models.CharField(max_length=255,blank=True)
     lastModifiedDate = models.DateTimeField(auto_now=True)
 
-class WaterBodySurPlusFromUpStreamResponse(models.Model):
+class WaterBodySurPlusFromUpperTankResponse(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid4)
     surveyResponse = models.ForeignKey(WaterBodySurveyResponse,on_delete=models.CASCADE,related_name='SurplusFromUpStream')
     tankName = models.CharField(max_length=255)
-    sourcecontributiontype = models.CharField(max_length=255)
     contributiontypepercentage = models.IntegerField()
     seassonstart = models.ForeignKey(Month,on_delete=models.CASCADE,related_name='surplusseassonstart')
     seassonend = models.ForeignKey(Month,on_delete=models.CASCADE,related_name='surplusseassonend')
     streamtype = models.ForeignKey(WaterBodyCrossSection,on_delete=models.CASCADE)
-    actualbreadth = models.IntegerField()
-    currentbreadth = models.IntegerField()
-    actualbottomwidth = models.IntegerField()
-    currentbottomwidth = models.IntegerField()
-    actualdepth = models.IntegerField()
-    currentdepth = models.IntegerField()
+    streamheadtopwidth = models.IntegerField(default=0)
+    streamheadbed = models.IntegerField(default=0)
+    streamheaddepth = models.IntegerField(default=0)
+    streammiddletopwidth = models.IntegerField(default=0)
+    streammiddlebed = models.IntegerField(default=0)
+    streammiddledepth = models.IntegerField(default=0)
+    streamtailendtopwidth = models.IntegerField(default=0)
+    streamtailendbed = models.IntegerField(default=0)
+    streamtailenddepth = models.IntegerField(default=0)
+    createdBy = models.CharField(max_length=255)
+    createdDate = models.DateTimeField(auto_now_add=True)
+    lastModifiedBy = models.CharField(max_length=255,blank=True)
+    lastModifiedDate = models.DateTimeField(auto_now=True)
+
+class WaterBodySurPlusFromUpperTankStreamIssues(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid4)
+    upperTankResponse = models.ForeignKey(WaterBodySurPlusFromUpperTankResponse,on_delete=models.CASCADE,related_name='Issues')
+    issue = models.ForeignKey(WaterBodyStreamIssues,on_delete=models.CASCADE)
     createdBy = models.CharField(max_length=255)
     createdDate = models.DateTimeField(auto_now_add=True)
     lastModifiedBy = models.CharField(max_length=255,blank=True)
@@ -629,6 +657,7 @@ class WaterBodyUpperTankSluiceResponse(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid4)
     surveyResponse = models.ForeignKey(WaterBodySurveyResponse,on_delete=models.CASCADE,related_name='UpperTankSluice')
     tankName = models.CharField(max_length=255)
+    tankNumber = models.IntegerField(default=0)
     contributionpercentage = models.IntegerField()
     seassonstart = models.ForeignKey(Month,on_delete=models.CASCADE,related_name='UpperTankSluiceSeassonStart')
     seassonend = models.ForeignKey(Month,on_delete=models.CASCADE,related_name='UpperTankSluiceSeassonEnd')
@@ -678,7 +707,7 @@ class WaterBodyIrrigationCanalResponse(models.Model):
 
 class WaterBodyIrrigationCanalStreamIssues(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid4)
-    IrrigationCanalResponse = models.ForeignKey(WaterBodyIrrigationCanalResponse,on_delete=models.CASCADE,related_name='Issues')
+    irrigationCanalResponse = models.ForeignKey(WaterBodyIrrigationCanalResponse,on_delete=models.CASCADE,related_name='Issues')
     issue = models.ForeignKey(WaterBodyStreamIssues,on_delete=models.CASCADE)
     createdBy = models.CharField(max_length=255)
     createdDate = models.DateTimeField(auto_now_add=True)
@@ -704,8 +733,34 @@ class WaterBodyRiverStreamResponse(models.Model):
 
 class WaterBodyRiverStreamIssues(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid4)
-    RiverStreamResponse = models.ForeignKey(WaterBodyRiverStreamResponse,on_delete=models.CASCADE,related_name='Issues')
+    riverStreamResponse = models.ForeignKey(WaterBodyRiverStreamResponse,on_delete=models.CASCADE,related_name='Issues')
     issue = models.ForeignKey(WaterBodyStreamIssues,on_delete=models.CASCADE)
+    createdBy = models.CharField(max_length=255)
+    createdDate = models.DateTimeField(auto_now_add=True)
+    lastModifiedBy = models.CharField(max_length=255,blank=True)
+    lastModifiedDate = models.DateTimeField(auto_now=True)
+
+class WaterBodySpringResponse(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid4)
+    surveyResponse = models.ForeignKey(WaterBodySurveyResponse,on_delete=models.CASCADE,related_name='Spring')
+    numberofspring = models.IntegerField()
+    springnature = models.ForeignKey(WaterBodyAvailability,on_delete=models.CASCADE,related_name='SpringNature')
+    seassonstart = models.ForeignKey(Month,on_delete=models.CASCADE,related_name='SpringseassonStart')
+    seassonend = models.ForeignKey(Month,on_delete=models.CASCADE,related_name='SpringseassonEnd')
+    contributiontypepercentage = models.IntegerField()
+    createdBy = models.CharField(max_length=255)
+    createdDate = models.DateTimeField(auto_now_add=True)
+    lastModifiedBy = models.CharField(max_length=255,blank=True)
+    lastModifiedDate = models.DateTimeField(auto_now=True)
+
+class WaterBodySubSurfaceResponse(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid4)
+    surveyResponse = models.ForeignKey(WaterBodySurveyResponse,on_delete=models.CASCADE,related_name='SubSurface')
+    numberofspring = models.IntegerField()
+    springnature = models.ForeignKey(WaterBodyAvailability,on_delete=models.CASCADE,related_name='SubSurfaceSpringNature')
+    seassonstart = models.ForeignKey(Month,on_delete=models.CASCADE,related_name='SubSurfaceseassonStart')
+    seassonend = models.ForeignKey(Month,on_delete=models.CASCADE,related_name='SubSurfaceseassonEnd')
+    contributiontypepercentage = models.IntegerField()
     createdBy = models.CharField(max_length=255)
     createdDate = models.DateTimeField(auto_now_add=True)
     lastModifiedBy = models.CharField(max_length=255,blank=True)
@@ -788,11 +843,17 @@ class WaterBodySluiceResponse(models.Model):
     sluicetype = models.ForeignKey(WaterBodySluice,on_delete=models.CASCADE,related_name='SluiceType')
     sluiceIrrigatedArea = models.IntegerField()
     silllevelDepth = models.ForeignKey(WaterBodyDepthSillLevel,on_delete=models.CASCADE,related_name='SluiceSillLevelDepth')
+    barrelType = models.ForeignKey(WaterBodyBarrelType,on_delete=models.CASCADE,related_name='SluiceBarrelType')
     shutterType = models.ForeignKey(WaterBodyShutter,on_delete=models.CASCADE,related_name='SluiceShutterType')
     sluicecondition = models.ForeignKey(WaterBodySluiceCondition,on_delete=models.CASCADE,related_name='SluiceCondition')
     shuttercondition = models.ForeignKey(WaterBodySluiceCondition,on_delete=models.CASCADE,related_name='ShutterCondition')
     sluicefeedanywaterbody =  models.CharField(max_length=10)
     waterbodyname =  models.CharField(max_length=255)
+    fieldchannel = models.CharField(max_length=10)
+    fieldchannellength = models.IntegerField(default=0)
+    fieldchannelType = models.ForeignKey(WaterBodyFieldChannelType,on_delete=models.CASCADE,related_name='SluiceFieldChannelType')
+    fieldchannelbandwidth = models.IntegerField(default=0)
+    fieldchannelheight = models.IntegerField(default=0)
     createdBy = models.CharField(max_length=255)
     createdDate = models.DateTimeField(auto_now_add=True)
     lastModifiedBy = models.CharField(max_length=255,blank=True)

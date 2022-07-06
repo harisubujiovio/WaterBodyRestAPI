@@ -1,7 +1,7 @@
 import os
 from pickle import FALSE, TRUE
 from rest_framework import serializers
-from .models import Block, District, Month, Panchayat, Section, SectionQuestion, SurveyQuestionMetaData, Taluk, TankImage, TankMetaData, UserProfile, WaterBodyAvailability, WaterBodyAyacutNonCultivation, WaterBodyBoundaryDropPoint, WaterBodyBund, WaterBodyBundFunctionalites, WaterBodyBundIssues, WaterBodyBundIssuesResponse, WaterBodyBundResponse, WaterBodyBundStonePitchings, WaterBodyCatchmentType, WaterBodyCropping, WaterBodyCrossSection, WaterBodyDepthSillLevel, WaterBodyDomesticResponse, WaterBodyDrinkingResponse, WaterBodyExoticSpecies, WaterBodyFamilyDistributionLand, WaterBodyFamilyNature, WaterBodyFenceCondition, WaterBodyFenceType, WaterBodyFencingResponse, WaterBodyFishingResponse, WaterBodyForLiveStockResponse, WaterBodyForPotteryResponse, WaterBodyFreeCatchmentResponse, WaterBodyFunctionalParameterResponse, WaterBodyGhatCondition, WaterBodyGhatsResponse, WaterBodyHarvestFromBundTreeResponse, WaterBodyHydrologicResponse, WaterBodyInletResponse, WaterBodyInletType, WaterBodyInvestmentNature, WaterBodyIrrigationCanalResponse, WaterBodyIrrigationResponse, WaterBodyIrrigationTankFunction, WaterBodyLotusCultivationResponse, WaterBodyMWLStone, WaterBodyOoraniFunction, WaterBodyOutletResponse, WaterBodyOutletType, WaterBodyOwnerShip, WaterBodySectionType, WaterBodyShutter, WaterBodyShutterCondition, WaterBodySlitTrap, WaterBodySluice, WaterBodySluiceCondition, WaterBodySluiceResponse, WaterBodySource, WaterBodySourceResponse, WaterBodySpreadAreaIssues, WaterBodySpreadIssues, WaterBodySpreadResponse, WaterBodyStonePitching, WaterBodyStonePitchingCondition, WaterBodyStreamIssues, WaterBodySurPlusFromUpStreamResponse, WaterBodySurpluCoarseIssues, WaterBodySurpluCoarseResponse, WaterBodySurplusWeir, WaterBodySurplusweirResponse, WaterBodySurveyResponse, WaterBodyTankBedCultivationResponse, WaterBodyTankBedDistributionLands, WaterBodyTankBedFamilies, WaterBodyTankIssues, WaterBodyTankType, WaterBodyTankUniqueness, WaterBodyTankUniquenessResponse, WaterBodyTempleTankType, WaterBodyType
+from .models import Block, District, Month, Panchayat, Section, SectionQuestion, SurveyQuestionMetaData, Taluk, TankImage, TankMetaData, UserProfile, WaterBodyAvailability, WaterBodyAyacutNonCultivation, WaterBodyBarrelType, WaterBodyBoundaryDropPoint, WaterBodyBund, WaterBodyBundFunctionalites, WaterBodyBundIssues, WaterBodyBundIssuesResponse, WaterBodyBundResponse, WaterBodyBundStonePitchings, WaterBodyCatchmentType, WaterBodyCropping, WaterBodyCrossSection, WaterBodyDepthSillLevel, WaterBodyDomesticResponse, WaterBodyDrinkingResponse, WaterBodyExoticSpecies, WaterBodyFamilyDistributionLand, WaterBodyFamilyNature, WaterBodyFenceCondition, WaterBodyFenceType, WaterBodyFencingResponse, WaterBodyFieldChannelType, WaterBodyFishingResponse, WaterBodyForLiveStockResponse, WaterBodyForPotteryResponse, WaterBodyFreeCatchmentResponse, WaterBodyFunctionalParameterResponse, WaterBodyGhatCondition, WaterBodyGhatsResponse, WaterBodyHarvestFromBundTreeResponse, WaterBodyHydrologicResponse, WaterBodyInletResponse, WaterBodyInletType, WaterBodyInvestmentNature, WaterBodyIrrigationCanalResponse, WaterBodyIrrigationResponse, WaterBodyIrrigationTankFunction, WaterBodyLotusCultivationResponse, WaterBodyMWLStone, WaterBodyOoraniFunction, WaterBodyOutletResponse, WaterBodyOutletType, WaterBodyOwnerShip, WaterBodyRiverStreamIssues, WaterBodyRiverStreamResponse, WaterBodySectionType, WaterBodyShutter, WaterBodyShutterCondition, WaterBodySlitTrap, WaterBodySluice, WaterBodySluiceCondition, WaterBodySluiceResponse, WaterBodySource, WaterBodySourceResponse, WaterBodySpreadAreaIssues, WaterBodySpreadInvasiveSpecies, WaterBodySpreadIssues, WaterBodySpreadResponse, WaterBodySpringResponse, WaterBodyStonePitching, WaterBodyStonePitchingCondition, WaterBodyStreamIssues, WaterBodySubSurfaceResponse, WaterBodySurPlusFromUpperTankResponse, WaterBodySurpluCoarseIssues, WaterBodySurpluCoarseResponse, WaterBodySurplusWeir, WaterBodySurplusweirResponse, WaterBodySurveyResponse, WaterBodyTankBedCultivationResponse, WaterBodyTankBedDistributionLands, WaterBodyTankBedFamilies, WaterBodyTankIssues, WaterBodyTankType, WaterBodyTankUniqueness, WaterBodyTankUniquenessResponse, WaterBodyTempleTankType, WaterBodyType, WaterBodyUpperTankSluiceResponse, WaterBodyUpperTankSluiceStreamIssues
 from .models import Role
 
 class RoleUserSerializer(serializers.ModelSerializer):
@@ -30,10 +30,9 @@ class RoleUpdateSerializer(serializers.ModelSerializer):
 
 class TankImageSerializer(serializers.ModelSerializer):
      id = serializers.UUIDField(read_only=True)
-     createdBy = serializers.UUIDField(read_only=True)
-     filename = serializers.SerializerMethodField(method_name="get_FileName")
-     def get_FileName(self, tankImage: TankImage):
-            return os.path.basename(tankImage.image.name)
+    #  filename = serializers.SerializerMethodField(method_name="get_FileName")
+    #  def get_FileName(self, tankImage: TankImage):
+    #         return os.path.basename(tankImage.image.name)
 
      class Meta:
         model = TankImage
@@ -354,6 +353,18 @@ class WaterBodyBundIssuesSerializer(serializers.ModelSerializer):
         model = WaterBodyBundIssues
         fields = ['id','name','createdBy','lastModifiedBy']
 
+class WaterBodyBarrelTypeSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyBarrelType
+        fields = ['id','name','createdBy','lastModifiedBy']
+
+class WaterBodyFieldChannelTypeSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyFieldChannelType
+        fields = ['id','name','createdBy','lastModifiedBy']
+
 class WaterBodySpreadIssuesSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
@@ -614,17 +625,17 @@ class WaterBodyBundIssuesResponseSerializer(serializers.ModelSerializer):
 
 class WaterBodyBundResponseSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
-    Issues = WaterBodyBundIssuesSerializer(many=True)
+    BundIssues = WaterBodyBundIssuesSerializer(many=True)
     Functionalites = WaterBodyBundFunctionalitesSerializer(many=True)
     Pitchings = WaterBodyBundStonePitchingsSerializer(many=True)
     class Meta:
         model = WaterBodyBundResponse
-        fields = ['id','surveyResponse', 'bundlength','bundtopwidth' ,'slopeforeside',
-         'sloperearside','bundreventment','bundreventmentinterval', 'stonepitchingcondition', 
-         'Issues','Functionalites', 'Pitchings', 'createdBy']
+        fields = ['id','surveyResponse', 'bundlength','bundtopwidth' ,'slopefrontside',
+         'sloperearside', 'stonepitchingcondition', 'revetmentlength',
+         'BundIssues','Functionalites', 'Pitchings', 'createdBy']
 
     def create(self, validated_data):
-        Issues = validated_data.pop('Issues')
+        Issues = validated_data.pop('BundIssues')
         Functionalites = validated_data.pop('Functionalites')
         Pitchings = validated_data.pop('Pitchings')
         bund_response = WaterBodyBundResponse.objects.create(**validated_data)
@@ -636,6 +647,67 @@ class WaterBodyBundResponseSerializer(serializers.ModelSerializer):
             WaterBodyBundStonePitchings.objects.create(bundResponse=bund_response,**pitching)
         return bund_response
 
+class WaterBodyUpperTankSluiceStreamIssuesSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    spreadResponse = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyUpperTankSluiceStreamIssues
+        fields = ['id','spreadResponse', 'Issues','createdBy']
+
+class WaterBodyUpperTankSluiceResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    Issues = WaterBodyUpperTankSluiceStreamIssuesSerializer(many=True)
+    class Meta:
+        model = WaterBodyUpperTankSluiceResponse
+        fields = ['id','surveyResponse','tankName','tankNumber','contributionpercentage',
+        'seassonstart','seassonend','streamtype','streamheadtopwidth','streamheadbed',
+        'streamheaddepth','streammiddletopwidth','streammiddlebed','streammiddledepth',
+        'streamtailendtopwidth','streamtailendbed','streamtailenddepth', 'Issues','createdBy']
+
+    def create(self, validated_data):
+        Issues = validated_data.pop('Issues')
+        spread_response = WaterBodySpreadResponse.objects.create(**validated_data)
+        for issue in Issues:
+            WaterBodyUpperTankSluiceStreamIssues.objects.create(spreadResponse=spread_response,**issue)
+        return spread_response
+
+class WaterBodyRiverStreamIssuesSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    spreadResponse = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyRiverStreamIssues
+        fields = ['id','spreadResponse', 'Issues','createdBy']
+
+class WaterBodyRiverStreamResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    Issues = WaterBodyRiverStreamIssuesSerializer(many=True)
+    class Meta:
+        model = WaterBodyRiverStreamResponse
+        fields = ['id','surveyResponse','riverName',
+        'bednature','seassonstart','seassonend','contributiontypepercentage',
+        'streamtype','streamtopwidth','streambed','streamdepth', 'Issues','createdBy']
+
+    def create(self, validated_data):
+        Issues = validated_data.pop('Issues')
+        spread_response = WaterBodySpreadResponse.objects.create(**validated_data)
+        for issue in Issues:
+            WaterBodyRiverStreamIssues.objects.create(spreadResponse=spread_response,**issue)
+        return spread_response
+
+class WaterBodySpringResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodySpringResponse
+        fields = ['id','surveyResponse','numberofspring','springnature',
+        'seassonstart','seassonend','contributiontypepercentage','createdBy']
+
+class WaterBodySubSurfaceResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodySubSurfaceResponse
+        fields = ['id','surveyResponse','numberofspring','springnature',
+        'seassonstart','seassonend','contributiontypepercentage','createdBy']
+
 
 class WaterBodySpreadAreaIssuesSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
@@ -644,39 +716,49 @@ class WaterBodySpreadAreaIssuesSerializer(serializers.ModelSerializer):
         model = WaterBodySpreadAreaIssues
         fields = ['id','spreadResponse', 'issue','createdBy']
 
+class WaterBodySpreadInvasiveSpeciesSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    spreadResponse = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodySpreadInvasiveSpecies
+        fields = ['id','spreadResponse', 'specie','createdBy']
+
+
 class WaterBodySpreadResponseSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
-    Issues = WaterBodySpreadIssuesSerializer(many=True)
+    Issues = WaterBodySpreadAreaIssuesSerializer(many=True)
+    Species = WaterBodySpreadInvasiveSpeciesSerializer(many=True)
     class Meta:
         model = WaterBodySpreadResponse
-        fields = ['id','surveyResponse', 'speciesName','waterspreadareapercentage' ,'Issues',  'createdBy']
+        fields = ['id','surveyResponse', 'spreadpercentage','Issues', 'Species','createdBy']
 
     def create(self, validated_data):
         Issues = validated_data.pop('Issues')
+        Species = validated_data.pop('Species')
         spread_response = WaterBodySpreadResponse.objects.create(**validated_data)
         for issue in Issues:
-            WaterBodySpreadIssues.objects.create(spreadResponse=spread_response,**issue)
+            WaterBodySpreadAreaIssues.objects.create(spreadResponse=spread_response,**issue)
+        for specie in Species:
+            WaterBodySpreadInvasiveSpecies.objects.create(spreadResponse=spread_response,**specie)
         return spread_response
-
-        
 
 class WaterBodyIrrigationCanalResponseSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyIrrigationCanalResponse
-        fields = ['id','surveyResponse', 'canalName','sourcecontributiontype','bednature','numberofSupplies', 
+        fields = ['id','surveyResponse', 'canalName','bednature','numberofSupplies', 
         'firstseassonstart', 'firstseassonend', 'secondseassonstart', 'secondseassonend', 'contributiontypepercentage',
-        'streamtype','actualtopwidth','currenttopwidth', 'actualbottomwidth','currentbottomwidth','actualdepth',
-        'currentdepth','createdBy']
+        'streamtype','streamtopwidth','streambed', 'streamdepth','createdBy']
 
 
-class WaterBodySurPlusFromUpStreamResponseSerializer(serializers.ModelSerializer):
+class WaterBodySurPlusFromUpperTankResponseSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
-        model = WaterBodySurPlusFromUpStreamResponse
-        fields = ['id','surveyResponse','tankName', 'sourcecontributiontype','contributiontypepercentage',
-        'seassonstart', 'seassonend','streamtype','actualbreadth','currentbreadth','actualbottomwidth',
-        'currentbottomwidth','actualdepth','currentdepth','createdBy']
+        model = WaterBodySurPlusFromUpperTankResponse
+        fields = ['id','surveyResponse','tankName','contributiontypepercentage',
+        'seassonstart', 'seassonend','streamtype','streamheadtopwidth','streamheadbed',
+        'streamheaddepth','streammiddletopwidth','streammiddlebed','streammiddledepth',
+        'streamtailendtopwidth','streamtailendbed','streamtailenddepth','createdBy']
 
 
 class WaterBodyFreeCatchmentResponseSerializer(serializers.ModelSerializer):
@@ -805,7 +887,7 @@ class WaterBodySurveyResponseSerializer(serializers.ModelSerializer):
     HydrologicParameter = WaterBodyHydrologicResponseSerializer(many=True)
     SourceParameter = WaterBodySourceResponseSerializer(many=True)
     FreeCatchment = WaterBodyFreeCatchmentResponseSerializer(many=True)
-    SurplusFromUpStream = WaterBodySurPlusFromUpStreamResponseSerializer(many=True)
+    SurplusFromUpStream = WaterBodySurPlusFromUpperTankResponseSerializer(many=True)
     IrigationCanal = WaterBodyIrrigationCanalResponseSerializer(many=True)
     Spread = WaterBodySpreadResponseSerializer(many=True)
     Bund = WaterBodyBundResponseSerializer(many=True)
