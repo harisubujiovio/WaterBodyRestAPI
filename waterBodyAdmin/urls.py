@@ -88,6 +88,10 @@ router.register('waterbodyriverstreamresponse',views.WaterBodyRiverStreamRespons
 router.register('waterbodyuppertanksluiceresponse',views.WaterBodyUpperTankSluiceResponseViewSet,basename='uppertanksluiceresponse')
 router.register('waterbodyspringresponse',views.WaterBodySpringResponseViewSet,basename='springresponse')
 router.register('waterbodysubsurfaceresponse',views.WaterBodySubSurfaceResponseViewSet,basename='subsurfaceresponse')
-
+router.register('waterbodyPermissionType',views.PermissionTypeViewSet)
+router.register('waterbodyPermissionType',views.PermissionTypeViewSet)
+router.register('waterbodyResourceType',views.ResourceTypeViewSet)
+router.register('waterbodyAccessRights',views.AccessRightsViewSet)
+router.register('waterbodyResourcePermission',views.ResourcePermissionViewSet)
 #URL Config Module
 urlpatterns = router.urls

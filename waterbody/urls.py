@@ -18,7 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.generic import TemplateView
-from waterBodyAdmin.views import UserProfileViewSet,CardSummaryView,AddressView
+from waterBodyAdmin.views import AccessRightsViewSet, UserProfileViewSet,CardSummaryView,AddressView
 
 urlpatterns = [
     path('', include('core.urls')),
@@ -33,5 +33,6 @@ urlpatterns = [
     # path('password/reset/<str:uid>/<str:token>/',reset_user_password),
     # path('password/reset/<str:uid>/<str:token>/',reset_user_password),
     path('waterBodyAdmin/userprofile/<pk>/user/<int:user_id>/', UserProfileViewSet.as_view({"delete": "deleteUser"})),
-    path('waterBodyAdmin/userprofile/<pk>/updateuser/<int:user_id>/', UserProfileViewSet.as_view({"patch": "updateUser"}))
+    path('waterBodyAdmin/userprofile/<pk>/updateuser/<int:user_id>/', UserProfileViewSet.as_view({"patch": "updateUser"})),
+    path('waterBodyAdmin/AccessRights/getRolePermissions/<role_id>/', AccessRightsViewSet.as_view({"get": "getRolePermissions"})),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

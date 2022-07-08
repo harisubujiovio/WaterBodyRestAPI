@@ -54,6 +54,48 @@ class UserProfile(models.Model):
     class Meta:
         ordering = ['user__first_name', 'user__last_name' ]
 
+class PermissionType(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid4)
+    name = models.CharField(max_length=255,unique=True)
+    createdBy = models.CharField(max_length=255)
+    createdDate = models.DateTimeField(auto_now_add=True)
+    lastModifiedBy = models.CharField(max_length=255,blank=True)
+    lastModifiedDate = models.DateTimeField(auto_now=True)
+
+class Resource(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid4)
+    name = models.CharField(max_length=255,unique=True)
+    createdBy = models.CharField(max_length=255)
+    createdDate = models.DateTimeField(auto_now_add=True)
+    lastModifiedBy = models.CharField(max_length=255,blank=True)
+    lastModifiedDate = models.DateTimeField(auto_now=True)
+
+class ResourcePermission(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid4)
+    resource = models.ForeignKey(Resource,on_delete=models.CASCADE)
+    permission = models.ForeignKey(PermissionType,on_delete=models.CASCADE)
+    createdBy = models.CharField(max_length=255)
+    createdDate = models.DateTimeField(auto_now_add=True)
+    lastModifiedBy = models.CharField(max_length=255,blank=True)
+    lastModifiedDate = models.DateTimeField(auto_now=True)
+
+class AccessRights(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid4)
+    role = models.ForeignKey(Role,on_delete=models.CASCADE,related_name='roleaccessright')
+    resource = models.ForeignKey(Resource,on_delete=models.CASCADE,related_name='resourceacessright')
+    permission = models.ForeignKey(PermissionType,on_delete=models.CASCADE,related_name='permissionaccessright')
+    createdBy = models.CharField(max_length=255)
+    createdDate = models.DateTimeField(auto_now_add=True)
+    lastModifiedBy = models.CharField(max_length=255,blank=True)
+    lastModifiedDate = models.DateTimeField(auto_now=True)
+
+class AccessRightsPermissions(models.Model):
+    permission_id = models.UUIDField(default=uuid4)
+    resource_id = models.UUIDField(default=uuid4)
+    accessright_id = models.UUIDField(default=uuid4)
+    ResourceName = models.CharField(max_length=255)
+    PermissionName = models.CharField(max_length=255)
+
 class TankImage(models.Model):
    image = models.FileField(upload_to='tanksinmadurai/files')
    filename = models.CharField(max_length=255,default='')
