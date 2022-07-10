@@ -48,7 +48,7 @@ class PermissionTypeSerializer(serializers.ModelSerializer):
         model = PermissionType
         fields = ['id','name','createdBy']
 
-class ResourcePermissionSerializer(serializers.ModelSerializer):
+class ResourcePermissionCreateSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = ResourcePermission
@@ -61,6 +61,9 @@ class ResourcePermissionListSerializer(serializers.ModelSerializer):
     class Meta:
         model = ResourcePermission
         fields = ['id','resource','permission','createdBy']
+
+class ResourcePermissionSerializer(serializers.Serializer):
+    id = serializers.UUIDField(read_only=True)
 
 class AccessRightsSerializer(serializers.Serializer):
     permission_id = serializers.UUIDField(read_only=True)

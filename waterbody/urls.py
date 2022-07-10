@@ -35,4 +35,5 @@ urlpatterns = [
     path('waterBodyAdmin/userprofile/<pk>/user/<int:user_id>/', UserProfileViewSet.as_view({"delete": "deleteUser"})),
     path('waterBodyAdmin/userprofile/<pk>/updateuser/<int:user_id>/', UserProfileViewSet.as_view({"patch": "updateUser"})),
     path('waterBodyAdmin/AccessRights/getRolePermissions/<role_id>/', AccessRightsViewSet.as_view({"get": "getRolePermissions"})),
+    path('waterBodyAdmin/AccessRights/getResourcePermission/<role_id>/<resource_name>/<permission_name>', AccessRightsViewSet.as_view({"get": "getResourcePermission"})),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
