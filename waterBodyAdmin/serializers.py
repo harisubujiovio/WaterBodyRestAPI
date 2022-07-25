@@ -901,34 +901,34 @@ class WaterBodySpreadInvasiveSpeciesSerializer(serializers.ModelSerializer):
 
 class WaterBodySpreadResponseSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
-    Issues = WaterBodySpreadAreaIssuesSerializer(many=True)
-    Species = WaterBodySpreadInvasiveSpeciesSerializer(many=True)
+    SpreadAreaIssues = WaterBodySpreadAreaIssuesSerializer(many=True)
+    SpreadAreaSpecies = WaterBodySpreadInvasiveSpeciesSerializer(many=True)
     class Meta:
         model = WaterBodySpreadResponse
-        fields = ['id','surveyResponse', 'spreadpercentage','Issues', 'Species','createdBy']
+        fields = ['id','surveyResponse', 'spreadpercentage','SpreadAreaIssues', 'SpreadAreaSpecies','createdBy']
 
     def create(self, validated_data):
-        Issues = validated_data.pop('Issues')
-        Species = validated_data.pop('Species')
+        SpreadAreaIssues = validated_data.pop('SpreadAreaIssues')
+        SpreadAreaSpecies = validated_data.pop('SpreadAreaSpecies')
         spread_response = WaterBodySpreadResponse.objects.create(**validated_data)
-        for issue in Issues:
+        for issue in SpreadAreaIssues:
             WaterBodySpreadAreaIssues.objects.create(spreadResponse=spread_response,**issue)
-        for specie in Species:
+        for specie in SpreadAreaSpecies:
             WaterBodySpreadInvasiveSpecies.objects.create(spreadResponse=spread_response,**specie)
         return spread_response
 
     def update(self, instance, validated_data):
-        Issues = validated_data.pop('Issues')
-        Species = validated_data.pop('Species')
-        if Issues is not None:
+        SpreadAreaIssues = validated_data.pop('SpreadAreaIssues')
+        SpreadAreaSpecies = validated_data.pop('SpreadAreaSpecies')
+        if SpreadAreaIssues is not None:
             WaterBodySpreadAreaIssues.objects.filter(spreadResponse_id=instance.id).delete()
-            if len(Issues) > 0:
-                for issue in Issues:
+            if len(SpreadAreaIssues) > 0:
+                for issue in SpreadAreaIssues:
                     WaterBodySpreadAreaIssues.objects.create(spreadResponse=instance,**issue)
-        if Species is not None:
+        if SpreadAreaSpecies is not None:
             WaterBodySpreadInvasiveSpecies.objects.filter(spreadResponse_id=instance.id).delete()
-            if len(Species) > 0:
-                for specie in Species:
+            if len(SpreadAreaSpecies) > 0:
+                for specie in SpreadAreaSpecies:
                     WaterBodySpreadInvasiveSpecies.objects.create(spreadResponse=instance,**specie)
         spreadpercentage = self.validated_data.get("spreadpercentage")
         if spreadpercentage is not None:
@@ -1208,24 +1208,6 @@ class WaterBodyHydrologicResponseSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
         
-
-class WaterBodySpreadResponseSerializer(serializers.ModelSerializer):
-    id = serializers.UUIDField(read_only=True)
-    Issues = WaterBodySpreadAreaIssuesSerializer(many=True)
-    Species = WaterBodySpreadInvasiveSpeciesSerializer(many=True)
-    class Meta:
-        model = WaterBodySpreadResponse
-        fields = ['id','surveyResponse', 'spreadpercentage','Issues', 'Species','createdBy']
-
-    def create(self, validated_data):
-        Issues = validated_data.pop('Issues')
-        Species = validated_data.pop('Species')
-        spread_response = WaterBodySpreadResponse.objects.create(**validated_data)
-        for issue in Issues:
-            WaterBodySpreadAreaIssues.objects.create(spreadResponse=spread_response,**issue)
-        for specie in Species:
-            WaterBodySpreadInvasiveSpecies.objects.create(spreadResponse=spread_response,**specie)
-        return spread_response
 
 class WaterBodyTankUniquenessResponseSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
