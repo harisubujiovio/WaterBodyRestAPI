@@ -1,7 +1,7 @@
 import os
 from pickle import FALSE, TRUE
 from rest_framework import serializers
-from .models import AccessRights, AccessRightsPermissions, Block, District, Month, Panchayat, PermissionType, Resource, ResourcePermission, Section, SectionQuestion, SurveyQuestionMetaData, Taluk, TankImage, TankMetaData, UserProfile, WaterBodyAvailability, WaterBodyAyacutNonCultivation, WaterBodyBarrelType, WaterBodyBoundaryDropPoint, WaterBodyBund, WaterBodyBundFunctionalites, WaterBodyBundIssues, WaterBodyBundIssuesResponse, WaterBodyBundResponse, WaterBodyBundStonePitchings, WaterBodyCatchmentType, WaterBodyCropping, WaterBodyCrossSection, WaterBodyDepthSillLevel, WaterBodyDomesticResponse, WaterBodyDrinkingResponse, WaterBodyExoticSpecies, WaterBodyFamilyDistributionLand, WaterBodyFamilyNature, WaterBodyFenceCondition, WaterBodyFenceType, WaterBodyFencingResponse, WaterBodyFieldChannelType, WaterBodyFishingResponse, WaterBodyForLiveStockResponse, WaterBodyForPotteryResponse, WaterBodyFreeCatchmentResponse, WaterBodyFunctionalParameterResponse, WaterBodyGhatCondition, WaterBodyGhatsResponse, WaterBodyHarvestFromBundTreeResponse, WaterBodyHydrologicResponse, WaterBodyInletResponse, WaterBodyInletType, WaterBodyInvestmentNature, WaterBodyIrrigationCanalResponse, WaterBodyIrrigationResponse, WaterBodyIrrigationTankFunction, WaterBodyLotusCultivationResponse, WaterBodyMWLStone, WaterBodyOoraniFunction, WaterBodyOutletResponse, WaterBodyOutletType, WaterBodyOwnerShip, WaterBodyRiverStreamIssues, WaterBodyRiverStreamResponse, WaterBodySectionType, WaterBodyShutter, WaterBodyShutterCondition, WaterBodySlitTrap, WaterBodySluice, WaterBodySluiceCondition, WaterBodySluiceResponse, WaterBodySource, WaterBodySourceResponse, WaterBodySpreadAreaIssues, WaterBodySpreadInvasiveSpecies, WaterBodySpreadIssues, WaterBodySpreadResponse, WaterBodySpringResponse, WaterBodyStonePitching, WaterBodyStonePitchingCondition, WaterBodyStreamIssues, WaterBodySubSurfaceResponse, WaterBodySurPlusFromUpperTankResponse, WaterBodySurpluCoarseIssues, WaterBodySurpluCoarseResponse, WaterBodySurplusWeir, WaterBodySurplusweirResponse, WaterBodySurveyResponse, WaterBodyTankBedCultivationResponse, WaterBodyTankBedDistributionLands, WaterBodyTankBedFamilies, WaterBodyTankIssues, WaterBodyTankType, WaterBodyTankUniqueness, WaterBodyTankUniquenessResponse, WaterBodyTempleTankType, WaterBodyType, WaterBodyUpperTankSluiceResponse, WaterBodyUpperTankSluiceStreamIssues
+from .models import AccessRights, AccessRightsPermissions, Block, District, Month, Panchayat, PermissionType, Resource, ResourcePermission, Section, SectionQuestion, SurveyQuestionMetaData, Taluk, TankImage, TankMetaData, UserProfile, WaterBodyAvailability, WaterBodyAyacutNonCultivation, WaterBodyBarrelType, WaterBodyBedNature, WaterBodyBoundaryDropPoint, WaterBodyBund, WaterBodyBundFunctionalites, WaterBodyBundIssues, WaterBodyBundIssuesResponse, WaterBodyBundResponse, WaterBodyBundStonePitchings, WaterBodyCatchmentType, WaterBodyCropping, WaterBodyCrossSection, WaterBodyDepthSillLevel, WaterBodyDomesticResponse, WaterBodyDrinkingResponse, WaterBodyExoticSpecies, WaterBodyFamilyDistributionLand, WaterBodyFamilyNature, WaterBodyFenceCondition, WaterBodyFenceType, WaterBodyFencingResponse, WaterBodyFieldChannelType, WaterBodyFishingResponse, WaterBodyForLiveStockResponse, WaterBodyForPotteryResponse, WaterBodyFreeCatchmentResponse, WaterBodyFreeCatchmentStreamIssues, WaterBodyFunctionalParameterResponse, WaterBodyGhatCondition, WaterBodyGhatsResponse, WaterBodyHarvestFromBundTreeResponse, WaterBodyHydrologicResponse, WaterBodyHydrologicalPrioritySourceSupply, WaterBodyHydrologicalSourceSupply, WaterBodyInletResponse, WaterBodyInletType, WaterBodyInvestmentNature, WaterBodyIrrigationCanalResponse, WaterBodyIrrigationCanalStreamIssues, WaterBodyIrrigationResponse, WaterBodyIrrigationTankFunction, WaterBodyLotusCultivationResponse, WaterBodyMWLStone, WaterBodyOoraniFunction, WaterBodyOutletResponse, WaterBodyOutletType, WaterBodyOwnerShip, WaterBodyRiverStreamIssues, WaterBodyRiverStreamResponse, WaterBodySectionType, WaterBodyShutter, WaterBodyShutterCondition, WaterBodySlitTrap, WaterBodySluice, WaterBodySluiceCondition, WaterBodySluiceResponse, WaterBodySource, WaterBodySource1Response, WaterBodySpreadAreaIssues, WaterBodySpreadInvasiveSpecies, WaterBodySpreadIssues, WaterBodySpreadResponse, WaterBodySpringResponse, WaterBodyStonePitching, WaterBodyStonePitchingCondition, WaterBodyStreamIssues, WaterBodySubSurfaceResponse, WaterBodySupplySource1Response, WaterBodySurPlusSluiceFromUpperTankResponse, WaterBodySurpluCoarseIssues, WaterBodySurpluCoarseResponse, WaterBodySurplusWeir, WaterBodySurplusweirResponse, WaterBodySurveyResponse, WaterBodyTankBedCultivationResponse, WaterBodyTankBedDistributionLands, WaterBodyTankBedFamilies, WaterBodyTankIssues, WaterBodyTankType, WaterBodyTankUniqueness, WaterBodyTankUniquenessResponse, WaterBodyTempleTankType, WaterBodyType, WaterBodyUpperTankSluiceResponse, WaterBodyUpperTankSluiceStreamIssues
 from .models import Role
 
 class RoleUserSerializer(serializers.ModelSerializer):
@@ -378,6 +378,12 @@ class WaterBodyGhatConditionSerializer(serializers.ModelSerializer):
         model = WaterBodyGhatCondition
         fields = ['id','name','createdBy','lastModifiedBy']
 
+class WaterBodyBedNatureSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyBedNature
+        fields = ['id','name','createdBy','lastModifiedBy']
+
 class WaterBodyTankTypeSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
@@ -714,36 +720,98 @@ class WaterBodyBundResponseSerializer(serializers.ModelSerializer):
             WaterBodyBundStonePitchings.objects.create(bundResponse=bund_response,**pitching)
         return bund_response
 
+class WaterBodySurPlusSluiceFromUpperTankSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodySurPlusSluiceFromUpperTankResponse
+        fields = ['id','surveyResponse','tankName','contributiontypepercentage',
+        'seassonstart','seassonend','createdBy']
+
 class WaterBodyUpperTankSluiceStreamIssuesSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
-    spreadResponse = serializers.UUIDField(read_only=True)
+    upperTankSluiceResponse = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyUpperTankSluiceStreamIssues
-        fields = ['id','spreadResponse', 'Issues','createdBy']
+        fields = ['id','upperTankSluiceResponse', 'issue','createdBy']
 
 class WaterBodyUpperTankSluiceResponseSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     Issues = WaterBodyUpperTankSluiceStreamIssuesSerializer(many=True)
     class Meta:
         model = WaterBodyUpperTankSluiceResponse
-        fields = ['id','surveyResponse','tankName','tankNumber','contributionpercentage',
+        fields = ['id','surveyResponse','tankName','contributionpercentage',
         'seassonstart','seassonend','streamtype','streamheadtopwidth','streamheadbed',
         'streamheaddepth','streammiddletopwidth','streammiddlebed','streammiddledepth',
         'streamtailendtopwidth','streamtailendbed','streamtailenddepth', 'Issues','createdBy']
 
     def create(self, validated_data):
         Issues = validated_data.pop('Issues')
-        spread_response = WaterBodySpreadResponse.objects.create(**validated_data)
+        sluice_response = WaterBodyUpperTankSluiceResponse.objects.create(**validated_data)
         for issue in Issues:
-            WaterBodyUpperTankSluiceStreamIssues.objects.create(spreadResponse=spread_response,**issue)
-        return spread_response
+            WaterBodyUpperTankSluiceStreamIssues.objects.create(upperTankSluiceResponse=sluice_response,**issue)
+        return sluice_response
+
+    def update(self, instance, validated_data):
+        Issues = validated_data.pop('Issues')
+        if Issues is not None:
+            WaterBodyUpperTankSluiceStreamIssues.objects.filter(upperTankSluiceResponse_id=instance.id).delete()
+            if len(Issues) > 0:
+                for issue in Issues:
+                    WaterBodyUpperTankSluiceStreamIssues.objects.create(upperTankSluiceResponse=instance,**issue)
+        tankName = self.validated_data.get("tankName")
+        if tankName is not None:
+           instance.tankName = tankName
+        contributiontypepercentage = self.validated_data.get("contributiontypepercentage")
+        if contributiontypepercentage is not None:
+           instance.contributiontypepercentage = contributiontypepercentage
+        seassonstart = self.validated_data.get("seassonstart")
+        if seassonstart is not None:
+           instance.seassonstart = seassonstart
+        seassonend = self.validated_data.get("seassonend")
+        if seassonend is not None:
+           instance.seassonend = seassonend
+        streamtype = self.validated_data.get("streamtype")
+        if streamtype is not None:
+           instance.streamtype = streamtype
+        streamheadtopwidth = self.validated_data.get("streamheadtopwidth")
+        if streamheadtopwidth is not None:
+           instance.streamheadtopwidth = streamheadtopwidth
+        streamheadbed = self.validated_data.get("streamheadbed")
+        if streamheadbed is not None:
+           instance.streamheadbed = streamheadbed
+        streamheaddepth = self.validated_data.get("streamheaddepth")
+        if streamheaddepth is not None:
+           instance.streamheaddepth = streamheaddepth
+        streammiddletopwidth = self.validated_data.get("streammiddletopwidth")
+        if streammiddletopwidth is not None:
+           instance.streammiddletopwidth = streammiddletopwidth
+        streammiddlebed = self.validated_data.get("streammiddlebed")
+        if streammiddlebed is not None:
+           instance.streammiddlebed = streammiddlebed
+        streammiddledepth = self.validated_data.get("streammiddledepth")
+        if streammiddledepth is not None:
+           instance.streammiddlebed = streammiddledepth
+        streamtailendtopwidth = self.validated_data.get("streamtailendtopwidth")
+        if streamtailendtopwidth is not None:
+           instance.streammiddlebed = streamtailendtopwidth
+        streamtailendbed = self.validated_data.get("streamtailendbed")
+        if streamtailendbed is not None:
+           instance.streamtailendbed = streamtailendbed
+        streamtailenddepth = self.validated_data.get("streamtailenddepth")
+        if streamtailenddepth is not None:
+           instance.streamtailenddepth = streamtailenddepth
+        lastModifiedBy = self.validated_data.get("lastModifiedBy")
+        if lastModifiedBy is not None:
+           instance.lastModifiedBy = lastModifiedBy
+        instance.save()
+        return instance
 
 class WaterBodyRiverStreamIssuesSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     spreadResponse = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodyRiverStreamIssues
-        fields = ['id','spreadResponse', 'Issues','createdBy']
+        fields = ['id','spreadResponse', 'issue','createdBy']
 
 class WaterBodyRiverStreamResponseSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
@@ -756,10 +824,50 @@ class WaterBodyRiverStreamResponseSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         Issues = validated_data.pop('Issues')
-        spread_response = WaterBodySpreadResponse.objects.create(**validated_data)
+        riverstream_response = WaterBodyRiverStreamResponse.objects.create(**validated_data)
         for issue in Issues:
-            WaterBodyRiverStreamIssues.objects.create(spreadResponse=spread_response,**issue)
-        return spread_response
+            WaterBodyRiverStreamIssues.objects.create(riverStreamResponse=riverstream_response,**issue)
+        return riverstream_response
+
+    def update(self, instance, validated_data):
+        Issues = validated_data.pop('Issues')
+        if Issues is not None:
+            WaterBodyRiverStreamIssues.objects.filter(riverStreamResponse_id=instance.id).delete()
+            if len(Issues) > 0:
+                for issue in Issues:
+                    WaterBodyRiverStreamIssues.objects.create(riverStreamResponse=instance,**issue)
+        riverName = self.validated_data.get("riverName")
+        if riverName is not None:
+           instance.riverName = riverName
+        bednature = self.validated_data.get("bednature")
+        if bednature is not None:
+           instance.bednature = bednature
+        seassonstart = self.validated_data.get("seassonstart")
+        if seassonstart is not None:
+           instance.seassonstart = seassonstart
+        seassonend = self.validated_data.get("seassonend")
+        if seassonend is not None:
+           instance.seassonend = seassonend
+        streamtype = self.validated_data.get("streamtype")
+        if streamtype is not None:
+           instance.streamtype = streamtype
+        contributiontypepercentage = self.validated_data.get("contributiontypepercentage")
+        if contributiontypepercentage is not None:
+           instance.contributiontypepercentage = contributiontypepercentage
+        streamtopwidth = self.validated_data.get("streamtopwidth")
+        if streamtopwidth is not None:
+           instance.streamtopwidth = streamtopwidth
+        streambed = self.validated_data.get("streambed")
+        if streambed is not None:
+           instance.streambed = streambed
+        streamdepth = self.validated_data.get("streamdepth")
+        if streamdepth is not None:
+           instance.streamdepth = streamdepth
+        lastModifiedBy = self.validated_data.get("lastModifiedBy")
+        if lastModifiedBy is not None:
+           instance.lastModifiedBy = lastModifiedBy
+        instance.save()
+        return instance
 
 class WaterBodySpringResponseSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
@@ -809,45 +917,315 @@ class WaterBodySpreadResponseSerializer(serializers.ModelSerializer):
             WaterBodySpreadInvasiveSpecies.objects.create(spreadResponse=spread_response,**specie)
         return spread_response
 
+    def update(self, instance, validated_data):
+        Issues = validated_data.pop('Issues')
+        Species = validated_data.pop('Species')
+        if Issues is not None:
+            WaterBodySpreadAreaIssues.objects.filter(spreadResponse_id=instance.id).delete()
+            if len(Issues) > 0:
+                for issue in Issues:
+                    WaterBodySpreadAreaIssues.objects.create(spreadResponse=instance,**issue)
+        if Species is not None:
+            WaterBodySpreadInvasiveSpecies.objects.filter(spreadResponse_id=instance.id).delete()
+            if len(Species) > 0:
+                for specie in Species:
+                    WaterBodySpreadInvasiveSpecies.objects.create(spreadResponse=instance,**specie)
+        spreadpercentage = self.validated_data.get("spreadpercentage")
+        if spreadpercentage is not None:
+           instance.spreadpercentage = spreadpercentage
+        lastModifiedBy = self.validated_data.get("lastModifiedBy")
+        if lastModifiedBy is not None:
+           instance.lastModifiedBy = lastModifiedBy
+        instance.save()
+        return instance
+
+
+
+class WaterBodyFreeCatchmentStreamIssuesSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    freeCatchmentResponse = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyFreeCatchmentStreamIssues
+        fields = ['id','freeCatchmentResponse', 'issue','createdBy']
+
+class WaterBodyIrrigationCanalStreamIssuesSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    irrigationCanalResponse = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyIrrigationCanalStreamIssues
+        fields = ['id','irrigationCanalResponse', 'issue','createdBy']
+
 class WaterBodyIrrigationCanalResponseSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
+    Issues = WaterBodyIrrigationCanalStreamIssuesSerializer(many=True)
     class Meta:
         model = WaterBodyIrrigationCanalResponse
         fields = ['id','surveyResponse', 'canalName','bednature','numberofSupplies', 
         'firstseassonstart', 'firstseassonend', 'secondseassonstart', 'secondseassonend', 'contributiontypepercentage',
-        'streamtype','streamtopwidth','streambed', 'streamdepth','createdBy']
+        'streamtype','streamtopwidth','streambed', 'streamdepth','Issues','createdBy']
 
+    def create(self, validated_data):
+        Issues = validated_data.pop('Issues')
+        irrigationcanal_response = WaterBodyIrrigationCanalResponse.objects.create(**validated_data)
+        for issue in Issues:
+            WaterBodyIrrigationCanalStreamIssues.objects.create(irrigationCanalResponse=irrigationcanal_response,**issue)
+        return irrigationcanal_response
 
-class WaterBodySurPlusFromUpperTankResponseSerializer(serializers.ModelSerializer):
-    id = serializers.UUIDField(read_only=True)
-    class Meta:
-        model = WaterBodySurPlusFromUpperTankResponse
-        fields = ['id','surveyResponse','tankName','contributiontypepercentage',
-        'seassonstart', 'seassonend','streamtype','streamheadtopwidth','streamheadbed',
-        'streamheaddepth','streammiddletopwidth','streammiddlebed','streammiddledepth',
-        'streamtailendtopwidth','streamtailendbed','streamtailenddepth','createdBy']
-
+    def update(self, instance, validated_data):
+        Issues = validated_data.pop('Issues')
+        if Issues is not None:
+            WaterBodyIrrigationCanalStreamIssues.objects.filter(irrigationCanalResponse_id=instance.id).delete()
+            if len(Issues) > 0:
+                for issue in Issues:
+                    WaterBodyIrrigationCanalStreamIssues.objects.create(irrigationCanalResponse=instance,**issue)
+        canalName = self.validated_data.get("canalName")
+        if canalName is not None:
+           instance.canalName = canalName
+        bednature = self.validated_data.get("bednature")
+        if bednature is not None:
+           instance.bednature = bednature
+        numberofSupplies = self.validated_data.get("numberofSupplies")
+        if numberofSupplies is not None:
+           instance.numberofSupplies = numberofSupplies
+        firstseassonstart = self.validated_data.get("firstseassonstart")
+        if firstseassonstart is not None:
+           instance.firstseassonstart = firstseassonstart
+        firstseassonend = self.validated_data.get("firstseassonend")
+        if firstseassonend is not None:
+           instance.firstseassonend = firstseassonend
+        secondseassonstart = self.validated_data.get("secondseassonstart")
+        if secondseassonstart is not None:
+           instance.secondseassonstart = secondseassonstart
+        secondseassonend = self.validated_data.get("secondseassonend")
+        if secondseassonend is not None:
+           instance.secondseassonend = secondseassonend
+        contributiontypepercentage = self.validated_data.get("contributiontypepercentage")
+        if contributiontypepercentage is not None:
+           instance.contributiontypepercentage = contributiontypepercentage
+        streamtype = self.validated_data.get("streamtype")
+        if streamtype is not None:
+           instance.streamtype = streamtype
+        streamtopwidth = self.validated_data.get("streamtopwidth")
+        if streamtopwidth is not None:
+           instance.streamtopwidth = streamtopwidth
+        streambed = self.validated_data.get("streambed")
+        if streambed is not None:
+           instance.streambed = streambed
+        streamdepth = self.validated_data.get("streamdepth")
+        if streamdepth is not None:
+           instance.streamdepth = streamdepth
+        lastModifiedBy = self.validated_data.get("lastModifiedBy")
+        if lastModifiedBy is not None:
+           instance.lastModifiedBy = lastModifiedBy
+        instance.save()
+        return instance
 
 class WaterBodyFreeCatchmentResponseSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
+    Issues = WaterBodyFreeCatchmentStreamIssuesSerializer(many=True)
     class Meta:
         model = WaterBodyFreeCatchmentResponse
-        fields = ['id','surveyResponse', 'sourcecontributiontype','contributiontypepercentage','seassonstart', 
-        'seassonend','streamtype','actualbreadth','currentbreadth','actualbottomwidth','currentbottomwidth',
-        'actualdepth','currentdepth','createdBy']
+        fields = ['id','surveyResponse','contributiontypepercentage','seassonstart', 
+        'seassonend','streamtype','streamheadtopwidth','streamheadbed','streamheaddepth',
+        'streammiddletopwidth','streammiddlebed','streammiddledepth','streamtailendtopwidth',
+        'streamtailendbed','streamtailenddepth','Issues','createdBy']
 
-class WaterBodySourceResponseSerializer(serializers.ModelSerializer):
+    def create(self, validated_data):
+        Issues = validated_data.pop('Issues')
+        freeCatchment_response = WaterBodyFreeCatchmentResponse.objects.create(**validated_data)
+        for issue in Issues:
+            WaterBodyFreeCatchmentStreamIssues.objects.create(freeCatchmentResponse=freeCatchment_response,**issue)
+        return freeCatchment_response
+
+    def update(self, instance, validated_data):
+        Issues = validated_data.pop('Issues')
+        if Issues is not None:
+            WaterBodyFreeCatchmentStreamIssues.objects.filter(freeCatchmentResponse_id=instance.id).delete()
+            if len(Issues) > 0:
+                for issue in Issues:
+                    WaterBodyFreeCatchmentStreamIssues.objects.create(freeCatchmentResponse=instance,**issue)
+        contributiontypepercentage = self.validated_data.get("contributiontypepercentage")
+        if contributiontypepercentage is not None:
+           instance.contributiontypepercentage = contributiontypepercentage
+        seassonstart = self.validated_data.get("seassonstart")
+        if seassonstart is not None:
+           instance.seassonstart = seassonstart
+        seassonend = self.validated_data.get("seassonend")
+        if seassonend is not None:
+           instance.seassonend = seassonend
+        streamtype = self.validated_data.get("streamtype")
+        if streamtype is not None:
+           instance.streamtype = streamtype
+        streamheadtopwidth = self.validated_data.get("streamheadtopwidth")
+        if streamheadtopwidth is not None:
+           instance.streamheadtopwidth = streamheadtopwidth
+        streamheadbed = self.validated_data.get("streamheadbed")
+        if streamheadbed is not None:
+           instance.streamheadbed = streamheadbed
+        streamheaddepth = self.validated_data.get("streamheaddepth")
+        if streamheaddepth is not None:
+           instance.streamheaddepth = streamheaddepth
+        streammiddletopwidth = self.validated_data.get("streammiddletopwidth")
+        if streammiddletopwidth is not None:
+           instance.streammiddletopwidth = streammiddletopwidth
+        streammiddlebed = self.validated_data.get("streammiddlebed")
+        if streammiddlebed is not None:
+           instance.streammiddlebed = streammiddlebed
+        streammiddledepth = self.validated_data.get("streammiddledepth")
+        if streammiddledepth is not None:
+           instance.streammiddlebed = streammiddledepth
+        streamtailendtopwidth = self.validated_data.get("streamtailendtopwidth")
+        if streamtailendtopwidth is not None:
+           instance.streammiddlebed = streamtailendtopwidth
+        streamtailendbed = self.validated_data.get("streamtailendbed")
+        if streamtailendbed is not None:
+           instance.streamtailendbed = streamtailendbed
+        streamtailenddepth = self.validated_data.get("streamtailenddepth")
+        if streamtailenddepth is not None:
+           instance.streamtailenddepth = streamtailenddepth
+        lastModifiedBy = self.validated_data.get("lastModifiedBy")
+        if lastModifiedBy is not None:
+           instance.lastModifiedBy = lastModifiedBy
+        instance.save()
+        return instance
+        
+class WaterBodySource1ResponseSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
+    Source1Response = serializers.UUIDField(read_only=True)
     class Meta:
-        model = WaterBodySourceResponse
-        fields = ['id','surveyResponse', 'source1', 'createdBy']
+        model = WaterBodySource1Response
+        fields = ['id','Source1Response', 'source1','createdBy']
+
+class WaterBodySupplySource1ResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    Sources1 = WaterBodySource1ResponseSerializer(many=True)
+    class Meta:
+        model = WaterBodySupplySource1Response
+        fields = ['id','surveyResponse', 'createdBy','Sources1']
+
+    def create(self, validated_data):
+        Sources1 = validated_data.pop('Sources1')
+        source1suppy_response = WaterBodySupplySource1Response.objects.create(**validated_data)
+        for source in Sources1:
+            WaterBodySource1Response.objects.create(Source1Response=source1suppy_response,**source)
+        return source1suppy_response
+
+    def update(self, instance, validated_data):
+        Sources1 = validated_data.pop('Sources1')
+        if Sources1 is not None:
+            WaterBodySource1Response.objects.filter(Source1Response=instance.id).delete()
+            if len(Sources1) > 0:
+                for issue in Sources1:
+                    WaterBodySource1Response.objects.create(Source1Response=instance,**issue)
+        surveyResponse = self.validated_data.get("surveyResponse")
+        if surveyResponse is not None:
+           instance.surveyResponse = surveyResponse
+        lastModifiedBy = self.validated_data.get("lastModifiedBy")
+        if lastModifiedBy is not None:
+           instance.lastModifiedBy = lastModifiedBy
+        instance.save()
+        return instance
+
+
+class WaterBodyHydrologicalSourceSupplySerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    hydrologicalResponse = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyHydrologicalSourceSupply
+        fields = ['id','hydrologicalResponse', 'source','createdBy']
+
+
+class WaterBodyHydrologicalPrioritySourceSupplySerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    hydrologicalResponse = serializers.UUIDField(read_only=True)
+    class Meta:
+        model = WaterBodyHydrologicalPrioritySourceSupply
+        fields = ['id','hydrologicalResponse', 'prioritysource','createdBy']
 
 class WaterBodyHydrologicResponseSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
+    Sources = WaterBodyHydrologicalSourceSupplySerializer(many=True)
+    PrioritySources = WaterBodyHydrologicalPrioritySourceSupplySerializer(many=True)
     class Meta:
         model = WaterBodyHydrologicResponse
         fields = ['id','surveyResponse', 'waterspreadArea','registeredAyacut','capacity','numberoffillings','firstmonthfilling',
-            'monthdryup','numberofsources', 'createdBy']
+            'monthdryup','numberofsources','catchmentType','waterAvailability', 'createdBy',
+            'Sources','PrioritySources']
+
+    def create(self, validated_data):
+        Sources = validated_data.pop('Sources')
+        PrioritySources = validated_data.pop('PrioritySources')
+        hydrologic_response = WaterBodyHydrologicResponse.objects.create(**validated_data)
+        for source in Sources:
+            WaterBodyHydrologicalSourceSupply.objects.create(hydrologicalResponse=hydrologic_response,**source)
+        for source in PrioritySources:
+            WaterBodyHydrologicalPrioritySourceSupply.objects.create(hydrologicalResponse=hydrologic_response,**source)
+        return hydrologic_response
+
+    def update(self, instance, validated_data):
+        Sources = validated_data.pop('Sources')
+        PrioritySources = validated_data.pop('PrioritySources')
+        if Sources is not None:
+            WaterBodyHydrologicalSourceSupply.objects.filter(hydrologicalResponse_id=instance.id).delete()
+            if len(Sources) > 0:
+                for source in Sources:
+                    WaterBodyHydrologicalSourceSupply.objects.create(hydrologicalResponse=instance,**source)
+        if PrioritySources is not None:
+            WaterBodyHydrologicalPrioritySourceSupply.objects.filter(hydrologicalResponse_id=instance.id).delete()
+            if len(PrioritySources) > 0:
+                for source in PrioritySources:
+                    WaterBodyHydrologicalPrioritySourceSupply.objects.create(hydrologicalResponse=instance,**source)
+        waterspreadArea = self.validated_data.get("waterspreadArea")
+        if waterspreadArea is not None:
+           instance.waterspreadArea = waterspreadArea
+        registeredAyacut = self.validated_data.get("registeredAyacut")
+        if registeredAyacut is not None:
+           instance.registeredAyacut = registeredAyacut
+        capacity = self.validated_data.get("capacity")
+        if capacity is not None:
+           instance.capacity = capacity
+        numberoffillings = self.validated_data.get("numberoffillings")
+        if numberoffillings is not None:
+           instance.numberoffillings = numberoffillings
+        firstmonthfilling = self.validated_data.get("firstmonthfilling")
+        if numberoffillings is not None:
+           instance.firstmonthfilling = firstmonthfilling
+        monthdryup = self.validated_data.get("monthdryup")
+        if monthdryup is not None:
+           instance.monthdryup = monthdryup
+        numberofsources = self.validated_data.get("numberofsources")
+        if numberofsources is not None:
+           instance.numberofsources = numberofsources
+        catchmentType = self.validated_data.get("catchmentType")
+        if catchmentType is not None:
+           instance.catchmentType = catchmentType
+        waterAvailability = self.validated_data.get("waterAvailability")
+        if waterAvailability is not None:
+           instance.waterAvailability = waterAvailability
+        lastModifiedBy = self.validated_data.get("lastModifiedBy")
+        if lastModifiedBy is not None:
+           instance.lastModifiedBy = lastModifiedBy
+        instance.save()
+        return instance
+        
+
+class WaterBodySpreadResponseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    Issues = WaterBodySpreadAreaIssuesSerializer(many=True)
+    Species = WaterBodySpreadInvasiveSpeciesSerializer(many=True)
+    class Meta:
+        model = WaterBodySpreadResponse
+        fields = ['id','surveyResponse', 'spreadpercentage','Issues', 'Species','createdBy']
+
+    def create(self, validated_data):
+        Issues = validated_data.pop('Issues')
+        Species = validated_data.pop('Species')
+        spread_response = WaterBodySpreadResponse.objects.create(**validated_data)
+        for issue in Issues:
+            WaterBodySpreadAreaIssues.objects.create(spreadResponse=spread_response,**issue)
+        for specie in Species:
+            WaterBodySpreadInvasiveSpecies.objects.create(spreadResponse=spread_response,**specie)
+        return spread_response
 
 class WaterBodyTankUniquenessResponseSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
@@ -868,7 +1246,7 @@ class WaterBodySurveyResponseUpdateSerializer(serializers.ModelSerializer):
     TankUniqueness = WaterBodyTankUniquenessResponseSerializer(many=TRUE)
     FunctionalParameters = WaterBodyFunctionalParameterResponseSerializer(many=TRUE)
     # BasicDetail = WaterBodyBasicDetailResponseSerializer(many=False)
-    # HydrologicParameter = WaterBodyHydrologicResponseSerializer(many=False)
+    # HydrologicParameter = WaterBodyHydrologicResponseSerializer(msany=False)
     # SourceParameter = WaterBodySourceResponseSerializer(many=False)
     # FreeCatchment = WaterBodyFreeCatchmentResponseSerializer(many=False)
     # SluiceUpStream = WaterBodySluiceUpStreamResponseSerializer(many=False)
@@ -945,16 +1323,18 @@ class WaterBodySurveyResponseAddSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     class Meta:
         model = WaterBodySurveyResponse
-        fields = ['id', 'name', 'status', 'createdBy']
+        fields = ['id','uniqueid','taluk','block','panchayat',
+        'village','surveyno','waterbodytype','ownership',
+        'tanktype','status', 'createdBy']
 
 class WaterBodySurveyResponseSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
+    uniqueid = serializers.CharField(max_length=255)
     TankUniqueness = WaterBodyTankUniquenessResponseSerializer(many=TRUE)
     FunctionalParameters = WaterBodyFunctionalParameterResponseSerializer(many=TRUE)
     HydrologicParameter = WaterBodyHydrologicResponseSerializer(many=True)
-    SourceParameter = WaterBodySourceResponseSerializer(many=True)
+    # SourceParameter = WaterBodySourceResponseSerializer(many=True)
     FreeCatchment = WaterBodyFreeCatchmentResponseSerializer(many=True)
-    SurplusFromUpStream = WaterBodySurPlusFromUpperTankResponseSerializer(many=True)
     IrigationCanal = WaterBodyIrrigationCanalResponseSerializer(many=True)
     Spread = WaterBodySpreadResponseSerializer(many=True)
     Bund = WaterBodyBundResponseSerializer(many=True)
@@ -976,7 +1356,7 @@ class WaterBodySurveyResponseSerializer(serializers.ModelSerializer):
     Drinkings = WaterBodyDrinkingResponseSerializer(many=True)
     class Meta:
         model = WaterBodySurveyResponse
-        fields = ['id', 'name', 'status', 'createdBy','TankUniqueness','FunctionalParameters',
+        fields = ['uniqueid', 'status', 'createdBy','TankUniqueness','FunctionalParameters',
          'BasicDetail','HydrologicParameter', 'SourceParameter',
         'FreeCatchment','SurplusFromUpStream','SluiceUpStream','IrigationCanal','Spread','Bund',
         'Sluice','Surplusweir','SurpluCoarse','Irrigation','Fishing','LotusCultivation',

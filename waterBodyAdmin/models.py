@@ -546,6 +546,14 @@ class WaterBodySectionType(models.Model):
     class Meta:
         unique_together = (("section", "waterbodytype"),)
 
+class WaterBodyBedNature(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid4)
+    name = models.TextField(max_length=255,unique=True)
+    createdBy = models.CharField(max_length=255)
+    createdDate = models.DateTimeField(auto_now_add=True)
+    lastModifiedBy = models.CharField(max_length=255,blank=True)
+    lastModifiedDate = models.DateTimeField(auto_now=True)
+
 class WaterBodyTankType(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid4)
     name = models.TextField(max_length=255,unique=True)
@@ -571,8 +579,8 @@ class WaterBodyCatchmentType(models.Model):
     lastModifiedDate = models.DateTimeField(auto_now=True)
 
 class WaterBodySurveyResponse(models.Model):
-    uniqueid = models.UUIDField(primary_key=True)
-    name = models.TextField()
+    id = models.UUIDField(primary_key=True,default=uuid4)
+    uniqueid = models.CharField(max_length=255,default='')
     taluk = models.ForeignKey(Taluk,on_delete=models.CASCADE,related_name='taluk')
     block = models.ForeignKey(Block,on_delete=models.CASCADE,related_name='block')
     panchayat = models.ForeignKey(Panchayat,on_delete=models.CASCADE,related_name='panchayat')
@@ -581,8 +589,6 @@ class WaterBodySurveyResponse(models.Model):
     waterbodytype = models.ForeignKey(WaterBodyType,on_delete=models.CASCADE,related_name='waterbodytype')
     ownership = models.ForeignKey(WaterBodyOwnerShip,on_delete=models.CASCADE,related_name='ownership')
     tanktype = models.ForeignKey(WaterBodyTankType,on_delete=models.CASCADE,related_name='tanktype')
-    neerkattipractice = models.CharField(max_length=10)
-    legalissue = models.BooleanField();
     status = models.CharField(max_length=100)
     createdBy = models.CharField(max_length=255)
     createdDate = models.DateTimeField(auto_now_add=True)
@@ -592,6 +598,7 @@ class WaterBodySurveyResponse(models.Model):
 class WaterBodyHydrologicResponse(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid4)
     surveyResponse = models.ForeignKey(WaterBodySurveyResponse,on_delete=models.CASCADE,related_name='HydrologicParameter')
+    tankName = models.CharField(max_length=255,default='')
     waterspreadArea = models.IntegerField()
     registeredAyacut = models.IntegerField()
     capacity = models.IntegerField()
@@ -624,9 +631,17 @@ class WaterBodyHydrologicalPrioritySourceSupply(models.Model):
     lastModifiedBy = models.CharField(max_length=255,blank=True)
     lastModifiedDate = models.DateTimeField(auto_now=True)
 
-class WaterBodySourceResponse(models.Model):
+class WaterBodySupplySource1Response(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid4)
-    surveyResponse = models.ForeignKey(WaterBodySurveyResponse,on_delete=models.CASCADE,related_name='SourceParameter')
+    surveyResponse = models.ForeignKey(WaterBodySurveyResponse,on_delete=models.CASCADE,related_name='Source1')
+    createdBy = models.CharField(max_length=255)
+    createdDate = models.DateTimeField(auto_now_add=True)
+    lastModifiedBy = models.CharField(max_length=255,blank=True)
+    lastModifiedDate = models.DateTimeField(auto_now=True)
+
+class WaterBodySource1Response(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid4)
+    Source1Response = models.ForeignKey(WaterBodySupplySource1Response,on_delete=models.CASCADE,related_name='Sources1')
     source1 = models.ForeignKey(WaterBodySource,on_delete=models.CASCADE)
     createdBy = models.CharField(max_length=255)
     createdDate = models.DateTimeField(auto_now_add=True)
@@ -636,7 +651,6 @@ class WaterBodySourceResponse(models.Model):
 class WaterBodyFreeCatchmentResponse(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid4)
     surveyResponse = models.ForeignKey(WaterBodySurveyResponse,on_delete=models.CASCADE,related_name='FreeCatchment')
-    sourcecontributiontype = models.CharField(max_length=255)
     contributiontypepercentage = models.IntegerField()
     seassonstart = models.ForeignKey(Month,on_delete=models.CASCADE,related_name='FreeCatchmentSeassonStart')
     seassonend = models.ForeignKey(Month,on_delete=models.CASCADE,related_name='FreeCatchmentSeassonEnd')
@@ -664,32 +678,13 @@ class WaterBodyFreeCatchmentStreamIssues(models.Model):
     lastModifiedBy = models.CharField(max_length=255,blank=True)
     lastModifiedDate = models.DateTimeField(auto_now=True)
 
-class WaterBodySurPlusFromUpperTankResponse(models.Model):
+class WaterBodySurPlusSluiceFromUpperTankResponse(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid4)
     surveyResponse = models.ForeignKey(WaterBodySurveyResponse,on_delete=models.CASCADE,related_name='SurplusFromUpStream')
     tankName = models.CharField(max_length=255)
     contributiontypepercentage = models.IntegerField()
     seassonstart = models.ForeignKey(Month,on_delete=models.CASCADE,related_name='surplusseassonstart')
     seassonend = models.ForeignKey(Month,on_delete=models.CASCADE,related_name='surplusseassonend')
-    streamtype = models.ForeignKey(WaterBodyCrossSection,on_delete=models.CASCADE)
-    streamheadtopwidth = models.IntegerField(default=0)
-    streamheadbed = models.IntegerField(default=0)
-    streamheaddepth = models.IntegerField(default=0)
-    streammiddletopwidth = models.IntegerField(default=0)
-    streammiddlebed = models.IntegerField(default=0)
-    streammiddledepth = models.IntegerField(default=0)
-    streamtailendtopwidth = models.IntegerField(default=0)
-    streamtailendbed = models.IntegerField(default=0)
-    streamtailenddepth = models.IntegerField(default=0)
-    createdBy = models.CharField(max_length=255)
-    createdDate = models.DateTimeField(auto_now_add=True)
-    lastModifiedBy = models.CharField(max_length=255,blank=True)
-    lastModifiedDate = models.DateTimeField(auto_now=True)
-
-class WaterBodySurPlusFromUpperTankStreamIssues(models.Model):
-    id = models.UUIDField(primary_key=True,default=uuid4)
-    upperTankResponse = models.ForeignKey(WaterBodySurPlusFromUpperTankResponse,on_delete=models.CASCADE,related_name='Issues')
-    issue = models.ForeignKey(WaterBodyStreamIssues,on_delete=models.CASCADE)
     createdBy = models.CharField(max_length=255)
     createdDate = models.DateTimeField(auto_now_add=True)
     lastModifiedBy = models.CharField(max_length=255,blank=True)
@@ -699,7 +694,6 @@ class WaterBodyUpperTankSluiceResponse(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid4)
     surveyResponse = models.ForeignKey(WaterBodySurveyResponse,on_delete=models.CASCADE,related_name='UpperTankSluice')
     tankName = models.CharField(max_length=255)
-    tankNumber = models.IntegerField(default=0)
     contributionpercentage = models.IntegerField()
     seassonstart = models.ForeignKey(Month,on_delete=models.CASCADE,related_name='UpperTankSluiceSeassonStart')
     seassonend = models.ForeignKey(Month,on_delete=models.CASCADE,related_name='UpperTankSluiceSeassonEnd')
